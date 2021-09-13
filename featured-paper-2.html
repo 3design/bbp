@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-145481065-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-145481065-1');
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+<link rel="manifest" href="favicon/site.webmanifest">
+<link rel="mask-icon" href="favicon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<meta name="author" content="Derek Lo @ 3design-dlo.com">
+<!-- general -->
+<link rel="stylesheet" type="text/css" href="css/styles.css" />
+<link rel="stylesheet" type="text/css" href="css/timeline.css" />
+<link rel="stylesheet" type="text/css" href="css/nav-styles.css" />
+<link rel="stylesheet" type="text/css" href="fonts/fonts.css" />
+<link href="css/lightbox.css" rel="stylesheet" />
+<meta charset="utf-8">
+<title>the BigBrain</title>
+<meta name="viewport" content="width=device-width">
+<meta name="description" content="This is the reference page of the website of the BigBrain Project.">
+<meta name="keywords" content="Neuro, Brain, Research, Big Data, Science, Medicine">
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="js/drop-down.js"></script>
+<script src="js/jquery.matchHeight.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="main-wrapper">
+  <div class="social-media">
+    <a href="https://twitter.com/BigBrainProject" class="tooltip">
+      <i class="fab fa-twitter-square"></i>
+      <span class="tooltiptext">Twitter</span>
+    </a>
+    <a href="mailto:info@bigbrainproject.org" class="tooltip">
+      <i class="fas fa-envelope-square"></i>
+      <span class="tooltiptext">Email</span>
+    </a>
+    <a href="#main-wrapper" class="tooltip">
+      <i class="fas fa-arrow-up"></i>
+      <span class="tooltiptext">Top</span>
+    </a>
+  </div>
+  <!-- navigation -->
+  <nav class="site-nav">
+    <div class="brand-border-1"></div>
+    <div class="brand-border-2"></div>
+    <div class="brand-border-3"></div>
+    <div class="nav-container">
+      <div class="branding"><a href="index.html">BigBrain Project</a></div>
+      <div id="showmenu">Menu</div>
+      <ul id="menu" class="nav-list hide">
+        <li class="nav-item"><a href="hiball.html"><strong>HIBALL</strong></a></li>
+        <li class="nav-item"><a href="#!">About</a>
+          <ul class="nav-dropdown">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="references.html">References</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a href="maps-and-models.html">Maps & Models</a></li>
+        <li class="nav-item"><a href="tools-and-services.html">Tools & Services</a></li>
+        <li class="nav-item"><a href="#!" class="active">Community</a>
+          <ul class="nav-dropdown">
+            <li><a href="community.html">Our Community</a></li>
+            <li><a href="news.html">News & Events</a></li>
+            <li><a href="featured.html" class="active">Featured</a></li>
+            <li><a href="https://bigbrain-forum.loris.ca/">Forum</a></li>
+            <li><a href="careers.html">Careers</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- references section -->
+  <section class="extra-pad">
+    <div class="section-content end">
+      <h1 class="full-width text-center">Featured Paper</h1>
+      <h2 class="full-width text-center">Convolutional Neural Networks for cytoarchitectonic brain mapping at large scale</h2>
+
+      <p> We are happy to present a new paper featuring the BigBrain dataset! <a href="https://doi.org/10.1016/j.neuroimage.2021.118327"> Convolutional Neural Networks for cytoarchitectonic brain mapping at large scale (Schiffer et al., 2021)</a>was recently published in the NeuroImage journal. It proposes a novel method for automatic classification of cytoarchitectonic brain areas in large series of consecutive histological brain sections. It is the first method that allows large scale analysis of human cytoarchitecture to become practically feasible, and represents a major milestone towards automated mapping of human brain structure.</p>
+      <p>The proposed method is based on Deep Neural Networks, a technique which has recently led to groundbreaking results in fields like image recognition, natural language processing and autonomous driving. Using this method, neuroscientists need only annotate a cytoarchitectonic brain region of interest in a handful of brain sections. These annotations are used to train a series of neural network models, which can then be used to automatically identify brain regions in sections without annotations. This approach can reduce the amount of annotations needed to be provided by neuroanatomy experts by several orders of magnitude, hence allowing the mapping of large series of brain sections (e.g. the BigBrain) to become practically feasible for the first time. For example, the Primary Visual Cortex (V1, hOc1), extending over 2400 sections in the BigBrain, was completely and successfully mapped using only 18 manually created annotations of the area. What an exciting and future-facing innovation!</p>
+      <p>TThe paper demonstrates the effectiveness of the method by fully segmenting the visual areas hOc1, hOc2, hOc3v and hOc5 in the BigBrain and reconstructing them in 3D. The resulting 3D models represent the highest resolution maps of human cytoarchitecture available today. All datasets are shared publicly via EBRAINS. They are accessible as part of the <a href="https://ebrains.eu/service/human-brain-atlas/">EBRAINS multilevel human brain atlas</a> and via the <a href="https://search.kg.ebrains.eu/">EBRAINS knowledge graph</a></p>
+      <p>If we’ve caught your interest, be sure to check out the full paper <a href="https://doi.org/10.1016/j.neuroimage.2021.118327">here</a>.</p>
+      <p>If you’re left with any intriguing questions/comments, we would love to hear your feedback. Email us at c.schiffer@fz-juelich.de. Happy reading!</p>
+      <p class="center">High-resolution 3D maps of cytoarchitectonic brain areas in the EBRAINS multilevel human brain atlas.<br>
+        <img src="images/featured/viewer.png">
+      </p>
+      <p class="center">Video of brain segment in motion<br>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/hJVevthExFM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </p>
+    </div>
+  </section>
+  <div class="clear-all"></div>
+
+  <!-- footer -->
+  <footer>  
+    <blockquote class="quote-holder">
+      <img class="quote-image" src="images/icon-aquisition.png">
+      <p class="quote-text">Share your publications on <a href="https://bigbrain-forum.loris.ca">Discourse</a></p>
+    </blockquote>
+    <div class="section-content flex">
+      <a href="https://www.fz-juelich.de/">
+        <img src="images/logo-julich.jpg">
+      </a>
+      <a href="https://mcgill.ca/">
+        <img src="images/logo-mcgill.png">
+      </a>
+    </div>
+    <p class="center" style="color: #fff;">For information please email us at <a href="mailto:info@bigbrainproject.org">info@bigbrainproject.org</a></p>
+  </footer>
+  <div class="brand-border-1"></div>
+  <div class="brand-border-2"></div>
+  <div class="brand-border-3"></div>
+</div>
+
+<!-- <script>
+    $(document).ready(function() {
+        $('#showmenu').click(function() {
+                $('.nav-list').toggleClass("hide");
+        });
+    });
+</script> -->
+
+<script>
+  $(function(){
+    $(".accordian h3").click(function(e){
+    $(".accordian ul p.answer").slideUp();
+      if ($(this).next().is(":hidden")){
+      $(this).next().slideDown();
+      }
+    });
+  });
+</script>
+
+<script>
+  $(function(){
+    $("#showmenu").click(function(e){
+    $("#menu").slideUp();
+      if ($(this).next().is(":hidden")){
+      $(this).next().slideDown();
+      }
+    });
+  });
+</script>
+</body></html>
