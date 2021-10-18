@@ -2027,3 +2027,121 @@ a.anchor {
   font-weight: bold; 
   box-shadow: 0px 3px 4px rgba(0,0,0,.25);
 }
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-space-between {
+  justify-content: space-between;
+}
+
+.mb-2 {
+  margin-bottom: 1.5rem;
+}
+.mt-2 {
+  margin-bottom: 1.5rem;
+}
+
+/*References new*/
+.ref-item {
+  padding: 20px;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+
+.ref-details-panel {
+  height: calc(100vh - 60px);
+  width: 0;
+  max-width: 80%;
+  position: fixed;
+  z-index: 1000;
+  top: 60px;
+  right: 0;
+  border-left: 1px solid;
+  background-color: #FFFFFF;
+  overflow-x: hidden;
+  transition: 0.3s;
+  padding-top: 60px;
+}
+
+.ref-title {
+  font-size: 1.1rem;
+  color: #144E76;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.ref-detail-row {
+  padding: 5px 10px;
+  margin: 3px 20px;
+
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+.ref-detail-row-key {
+  color: grey;
+  flex: 0 0 33%;
+  text-align: right;
+  padding-right: 10px;
+}
+
+.ref-detail-row-value {
+  flex: 1 1 0;
+}
+
+.ref-tag {
+  padding: 10px;
+  border-radius: 10px;
+  margin: 5px 10px;
+}
+
+.ref-tab {
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.ref-tab button.active {
+  background-color: #ccc;
+}
+
+.display-none {
+  display: none;
+}
+
+.tab-content {
+  display: none;
+  padding: 6px 12px;
+  margin: 20px 0;
+}
+
+.ref-loader {
+  border: 10px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 10px solid #144E76;
+  width: 50px;
+  height: 50px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
