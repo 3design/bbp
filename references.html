@@ -33,6 +33,7 @@
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="js/drop-down.js"></script>
 <script src="js/jquery.matchHeight.js" type="text/javascript"></script>
+<script src="js/references.js" type="text/javascript"></script>
 </head>
 <body>
 <div id="main-wrapper">
@@ -88,461 +89,64 @@
       <h1 class="full-width text-center">BigBrain References</h1>
       <h2 class="full-width text-center">Posters, Publications, and News involving the BigBrain</h2>
 
-      <!-- conference -->
-      <div class="accordian">
-        <ul>
-          <li></li>
-        </ul>
+
+      <div class="flex flex-space-between full-width mb-2">
+        <div class="flex">
+          <input placeholder="Search..." type="search" id="ref-search" name="search">
+          <button id="search-button" onclick="search()">Search</button>
+        </div>
+        <div>
+          <label for="sort-ref">Sort by:</label>
+
+          <select name="sort-ref" id="sort-ref" onchange="sortChanged()">
+            <option value="dateDesc">Date desc</option>
+            <option value="dateAsc">Date asc</option>
+<!--            <option value="titleDesc">Name desc</option>-->
+<!--            <option value="titleAsc">Name asc</option>-->
+            <option value="itemTypeDesc">Type desc</option>
+            <option value="itemTypeAsc">Type asc</option>
+          </select>
+        </div>
       </div>
-      <!-- publications -->
-      <div class="accordian">
-        <ul>
-          <!-- publication -->
-          <li class="grey-border">
-            <h3 class="title">
-              <span class="fa fa-plus"></span>
-              <p class="question text-center">Publications</p>
-            </h3>
-            <p class="answer">
-              <span class="reference julich-bar"> 
-                Schiffer C, Amunts K, Harmeling S, Dickscheid T (2021) <cite>Contrastive Representation Learning for Whole Brain Cytoarchitectonic Mapping in Histological Human Brain Sections,</cite>. International Symposium on Biomedical Imaging (ISBI 2021), <a href="https://arxiv.org/abs/2011.12865" target="_blank">link</a>
-              </span><br>
-              <span class="reference julich-bar"> 
-                Schiffer C, Spitzer H, Kiwitz K, Unger N, Wagstyl K, Evans AC, Harmeling S, Amunts K, Dickscheid T (2021) <cite>Convolutional Neural Networks for cytoarchitectonic brain mapping at large scale</cite>. NeuroImage, 2021, 118327, ISSN 1053-8119, <a href="https://doi.org/10.1016/j.neuroimage.2021.118327" target="_blank">doi</a>
-              </span><br>
-              <span class="reference other-bar"> 
-                Valdés-Sosa PA, Galan L, Bosch-Bayard J, Bringas-Vega ML, Aubert-Vazquez E, Rodriguez-Gil I, Das S, Madjar C, Virues-Alba T, Mohades Z, MacIntyre LC, Rogers C, Brown S, Valdes-Urrutia L, Evans AC, Valdés-Sosa MJ (2021) <cite>The Cuban Human Brain Mapping Project, a young and middle age population-based EEG, MRI, and cognition dataset</cite>. Nature Scientific Data, <em>accepted Jan/2021</em>. 
-              </span><br>
-              <span class="reference julich-bar"> 
-                Zachlod D, Rüttgers B, Bludau S, Mohlberg H, Langner R, Zilles K, Amunts K (2020) <cite>Four new cytoarchitectonic areas surrounding the primary and early auditory cortex in human brains</cite>. DCortex, 128:1-21 doi: <a href="https://doi.org/10.1016/j.cortex.2020.02.021" target="_blank">link</a>
-              </span><br>
-              <span class="reference julich-bar"> 
-                Royer J, Paquola C, Larivière S, Vos de Wael R, Tavakol S, Lowe AJ, Benkarim O, Evans AC, Bzdok D, Smallwood J, Frauscher B, Bernhardt BC (2020) <cite>Myeloarchitecture gradients in the human insula: Histological underpinnings and association to intrinsic functional connectivity</cite>. NeuroImage, 216:116859 doi: <a href="https://doi.org/10.1016/j.neuroimage.2020.116859" target="_blank">link</a>
-              </span><br>
-              <span class="reference other-bar"> 
-                Bosch-Bayard J, Galan L, Aubert E, Virues T, Valdés-Sosa PA (2020) <cite>Resting state healthy EEG: the first wave of the Cuban normative database</cite>. Data Report, Front. Neurosci. - Brain Imaging Methods, 14:555119. doi: <a href="https://doi.org/10.3389/fnins.2020.555119" target="_blank">link</a>
-              </span><br>
-              <span class="reference mcgill-bar"> 
-                Paquola C, Seidlitz J, Benkarim O, Royer J, Klimes P, Bethlehem RAI, Larivière S, Vos de Wael R, Rodríguez-Cruces R, Hall JA, Frauscher B, Smallwood J, Bernhardt BC (2020) <cite>AA multi-scale cortical wiring space links cellular architecture and functional dynamics in the human brain</cite>. PLoS Biology 18(11): e3000979. <a href="https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3000979" target="_blank">link</a>
-              </span><br>
-              <span class="reference julich-bar"> 
-                Kiwitz K, Schiffer C, Spitzer H, Dickscheid T, Amunts K (2020) <cite>Deep learning networks reflect cytoarchitectonic features used in brain mapping</cite>. Sci Rep 10, 22039. doi: <a href="https://doi.org/10.1038/s41598-020-78638-y" target="_blank">link</a>
-              </span><br>
-              <span class="reference julich-bar"> 
-                Amunts K, Mohlberg H, Bludau S, Zilles K (2020) <cite>Julich-Brain: A 3D probabilistic atlas of the human brain’s cytoarchitecture</cite>. Science, 369(6506):988-992 doi:<a href="https://doi.org/10.1126/science.abb4588" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                Wagstyl K, Larocque S, Cucurull G, Lepage C, Cohen JP, Bludau S, Palomero-Gallagher N, Lewis LB, Funck T, Spitzer H, Dickscheid T, Fletcher PC, Romero A, Zilles K, Amunts K, Bengio Y, Evans AC (2020) <cite>BigBrain 3D atlas of cortical layers: Cortical and laminar thickness gradients diverge in sensory and motor cortices</cite>. PlosBiology doi: <a href="https://doi.org/10.1371/journal.pbio.3000678" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                Seidlitz J, Nadig A, Liu S, Bethlehem RAI, Vértes PE, Morgan SE, Váša F, Romero-Garcia F, Lalonde FM, Clasen LS, Blumenthal JD, Paquola C, Bernhardt B, Wagstyl K, Polioudakis D, de la Torre-Ubieta L, Geschwind DH, Han JC, Lee NR, Murphy DG, Bullmore ET, Raznahan A (2020) <cite>Transcriptomic and cellular decoding of regional brain vulnerability to neurogenetic disorders</cite>. Nature Communications, 11(3358), doi:  <a href="https://doi.org/10.1038/s41467-020-17051-5" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                DeKraker J, Lau JC, Ferko KM, Khan AR, Kohler S (2019) <cite>Hippocampal subfields revealed through unfolding and unsupervised clustering of laminar and morphological features in 3D BigBrain</cite>. NeuroImage, 206(116328), doi: <a href="https://doi.org/10.1016/j.neuroimage.2019.116328" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                Lau JC, Parrent AG, Demarco J, Gupta G, Kai J, Stanley OW, Kuehn T, Park PJ, Ferko K, Khan AR, Peters TM (2019) <cite>A framework for evaluating correspondence between brain images using anatomical fiducials</cite>. Hum Brain Mapp. 2019; 40: 4163– 4179. doi: <a href="https://doi.org/10.1002/hbm.24693" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                Seidlitz J, Nadig  A, Liu S, Bethlehem RAI, Vértes PE, Morgan SE, Váša F, Romero-Garcia R, Lalonde FM, Clasen LS, Blumenthal JD, Paquola C, Bernhardt B, Wagstyl K, Polioudakis D, de la Torre-Ubieta L, Geschwind DH, Han JC, Lee NR, Murphy DG, Bullmore ET, Raznahan A (2019) <cite>Transcriptomic and Cellular Decoding of Regional Brain Vulnerability to Neurodevelopmental Disorders</cite>. bioRxiv,  doi: <a href="https://doi.org/10.1101/573279" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                Irmen F, Horn A, Mosley P, Perry A, Petry-Schmelzer JN, Dafsari HS, Barbe M, Visser-Vandewalle V, Schneider GH, Li N, Kübler D, Wenzel G, Kühn A (2019) <cite>Left prefrontal connectivity links subthalamic stimulation with depressive symptoms in Parkinson’s disease</cite>. bioRxiv 665976; doi: <a href="https://doi.org/10.1101/665976" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                Horn A, Wenzel G, Irmen F, Huebl J, Li N, Neumann WJ, Krause P, Bohner G, Scheel M, Kühn AA (2019) <cite>Deep brain stimulation induced normalization of the human functional connectome in Parkinson’s disease</cite>. Brain , awz239, doi: <a href="https://doi.org/10.1093/brain/awz239" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                Horn A, Li N, Dembek TA, Kappel A, Boulay C, Ewert S, Tietze A, Husch A, Perera T, Neumann WJ, Reisert M, Si H, Oostenveld R, Rorden C, Yeh FC, Fang Q, Herrington TM, Vorwerk J, Kühn AA (2019) <cite>Lead-DBS v2: Towards a comprehensive pipeline for deep brain stimulation imaging</cite>. NeuroImage, 184:293-316 doi: <a href="https://doi.org/10.1016/j.neuroimage.2018.08.068" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                Dugré M, Hayot-Sasson M, Glatard T (2019) <cite>A performance comparison of Dask and Apache Spark for data-intensive neuroimaging pipelines</cite>. arxiv, <a href="https://arxiv.org/abs/1907.13030" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                Hayot-Sasson V, Brown ST, Glatard T (2019) <cite>Performance Evaluation of Big Data Processing Strategies for Neuroimaging</cite>. arxiv, <a href="https://arxiv.org/abs/1812.06492" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                Xiao Y, Lau JC, Anderson T, DeKraker J, Collins DL, Peters T, Khan AR (2019) <cite>Bridging micro and macro: accurate registration of the BigBrain dataset with the MNI PD25 and ICBM152 atlases</cite>. bioRxiv 561118; doi: <a href="https://doi.org/10.1101/561118" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                Sitek KR, Gulban OF, Calabrese E, Johnson GA, Lage-Castellanos A, Moerel M, Ghosh SS, De Martino F (2019) <cite>Mapping the human subcortical auditory system using histology, postmortem MRI and in vivo MRI at 7T</cite>. eLife 2019;8:e48932. doi: <a href="https://doi.org/10.7554/eLife.48932" target="_blank">link</a>
-              </span><br>
-              <span class="reference mcgill-bar"> 
-                Wagstyl K, Larocque S, Cucurull G, Lepage C, Cohen JP, Bludau S, Palomero-Gallagher N, Funck T, Spitzer H, Dicksheid T, Fletcher PC, Romero A, Zilles K, Amunts K, Bengio Y,  Evans AC (2019) <cite>Automated segmentation of cortical layers in BigBrain reveals divergent cortical and laminar thickness gradients in sensory and motor cortices</cite>. bioRxiv, doi: <a href="https://doi.org/10.1101/580597" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                DeKraker J, Lau JC, Ferko KM, Khan AR, Köhler S (2019) <cite> Hippocampal morphology and cytoarchitecture in the 3D BigBrain</cite>. bioRxiv, doi: <a href="https://doi.org/10.1101/599571" target="_blank">link</a>
-              </span><br>
-              <span class="reference mcgill-bar"> 
-                Paquola C, Vos De Wael R, Wagstyl K,Bethlehem RAI, Hong S-J, Seidlitz J, Bullmore ET, Evans AC, Misic B, Margulies DS, Smallwood J, Bernhardt BC (2019) <cite>Microstructural and functional gradients are increasingly dissociated in transmodal cortices</cite>. PLoSBiol 17(5):e3000284. doi: <a href="https://doi.org/10.1371/journal.pbio.3000284" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                Wei Y, Scholtens LH,Turk E, van den Heuvel MP (2019) <cite>Multiscale examination of cytoarchitectonic similarity and human brain connectivity</cite>, NetworkNeuroscience,3(1), 124–137. doi: <a href="https://doi.org/10.1162/netn_a_00057" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                Oden L, Schiffer C, Spitzer H, Dickscheid T, Pleiter D (2019) <cite>IO Challenges for Human Brain Atlasing Using Deep Learning Methods - An In-Depth Analysis</cite>.  27th Euromicro International Conference on Parallel, Distributed and Network-Based Processing (PDP), Pavia, Italy, 2019, pp. 291-298. doi: <a href="https://doi.org/10.1109/EMPDP.2019.8671630" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                Iglesias JE, Modat M, Peter L, Stevens A, Annunziata R, Vercauteren T, Lein E, Fischl B, Ourselin S, for the ADNI (2018) <cite>Joint registration and synthesis using a probabilistic model for alignment of MRI and histological sections</cite>. Med Image Analysis, 50:127-144. doi: <a href="https://doi.org/10.1016/j.media.2018.09.002">link</a>
-              </span><br>
-              <span class="reference"> 
-                Maia PD, Pandya S, Torok J, Gupta A, Zeighami Y, Raj A (2018) <cite>Heterogeneity of Incipient Atrophy Patterns in Parkinson’s Disease</cite>. bioRxiv, doi: <a href="https://doi.org/10.1101/466086">link</a>
-              </span><br>
-              <span class="reference">
-                Yu Y, Herman P, Rothman D L, Agarwal D, Hyder F (2018) <cite>Evaluating the gray and white matter energy budgets of human brain function</cite>. ournal of Cerebral Blood Flow & Metabolism, 38(8), 1339–1353. doi: <a href="https://doi.org/10.1177/0271678X17708691" target="_blank">link</a>
-              </span><br>
-              <span class="reference mcgill-bar"> 
-                Wagstyl K, Lepage C, Bludau S, Zilles K, Fletcher P, Amunts K, Evans AC (2018) <cite>Mapping Cortical Laminar Structure in the 3D BigBrain</cite>. Cerebral Cortex (New York, N.Y. : 1991), 28 (7), 2551-2562. doi: <a href=" https://doi.org/10.1093/cercor/bhy074" target="_blank">link</a>
-              </span><br>
-              <span class="reference julich-bar"> 
-                Spitzer H, Amunts K, Harmeling S, Dickscheid T (2018) <cite>Compact feature representations for human brain cytoarchitecture using self-supervised learning</cite>. Medical Imaging with Deep Learning (MIDL 2018, Amsterdam). <a href="https://openreview.net/pdf?id=HyjJ812of" target="_blank">link</a>
-              </span><br>
-              <span class="reference julich-bar"> 
-                Spitzer H, Kiwitz K, Amunts K, Harmeling S, Dickscheid T (2018) <cite>Improving Cytoarchitectonic Segmentation of Human Brain Areas with Self-supervised Siamese Networks</cite>. MICCAI 2018 <a href="https://arxiv.org/pdf/1806.05104.pdf" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                Gulban OF, Schneider M, Marquardt I, Haast RAM, De Martino F (2018) <cite>A scalable method to improve gray matter segmentation at ultra high field MRI</cite>. PLoS ONE 13(6): e0198335. doi: <a href="https://doi.org/10.1371/journal.pone.0198335" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                Yeh FC, Panesar S, Fernandes D, Meola A, Yoshino M, Fernandez-Miranda JC, Vettel JM, Verstynen T (2018) <cite>Population-averaged atlas of the macroscale human structural connectome and its network topology</cite>. NeuroImage 178 (2018):57-68 doi: <a href="https://doi.org/10.1016/j.neuroimage.2018.05.027" target="_blank">link</a>. Epub 2018 May 24.
-              </span><br>
-              <span class="reference mcgill-bar"> 
-                Fournier M, Lewis LB, Evans AC (2017) <cite>BigBrain: Automated cortical parcellation and comparison with existing brain atlases</cite>. Springer Lecture Notes in Computer Science, Vol. 10081, No. 1, 2017, 14-25. <a href="https://link.springer.com/chapter/10.1007/978-3-319-61188-4_2" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                Lambert C, Simon H, Colman J, Barrick TR (2017) <cite>Defining thalamic nuclei and topographic connectivity gradients in vivo</cite>. NeuroImage 158:466-479. doi: <a href="https://doi.org/10.1016/j.neuroimage.2016.08.028" target="_blank">link</a>
-              </span><br>
-              <span class="reference julich-bar"> 
-                Spitzer H, Amunts K, Harmeling S, Dickscheid T (2017) <cite>Parcellation of visual cortex on high-resolution histological brain sections using convolutional neural networks</cite>. IEEE 14th International Symposium on Biomedical Imaging (ISBI 2017), Melbourne, VIC, 2017, pp. 920-923. doi: <a href="https://doi.org/10.1109/ISBI.2017.7950666" target="_blank">link</a>
-              </span><br>
-              <span class="reference">
-                Neuro Cloud Consortium: Vogelstein JT, Mensh B, Häusser M, Spruston N, Evans AC, Kording K, Amunts K, Ebell C, Muller J, Telefont M, Hill S, Koushika SP, Calì C, Valdés-Sosa PA, Littlewood PB, Koch C, Saalfeld S, Kepecs A, Peng H, Halchenko YO, Kiar G, Poo MM, Poline JB, Milham MP, Schaffer AP, Gidron R, Okano H, Calhoun VD, Chun M, Kleissas DM, Vogelstein RJ, Perlman E, Burns R, Huganir R, Miller MI (2016) <cite>To the Cloud! A Grassroots Proposal to Accelerate Brain Science Discovery</cite>. Neuron. 92(3):622-627. doi: <a href="http://dx.doi.org/10.1016/j.neuron.2016.10.033" target="_blank">link</a>
-              </span>
-              <span class="reference"> 
-                Beukema P, Yeh FC, Verstynen T (2015) <cite>In vivo characterization of the connectivity and subcomponents of the human globus pallidus</cite>. NeuroImage 120(2015):382-393 doi: <a href="https://doi.org/10.1016/j.neuroimage.2015.07.0315" target="_blank">link</a>
-              </span><br>
-              <span class="reference julich-bar"> 
-                Amunts K, Hawrylycz M, Van Essen D, Van Horn JD, Harel N, Poline JB, De Martino F, Bjaalie JG, Dehaene-Lambertz G, Dehaene S, Valdes-Sosa P, Thirion B, Zilles K, Hill SL, Abrams MB, Tass PA, Vanduffel W, Evans AC, Eickhoff SB (2014) <cite>Interoperable atlases of the human brain</cite>. Neuroimage, 99: 525-532. doi: <a href="http://dx.doi.org/10.1016/j.neuroimage.2014.06.010">link</a>
-              </span><br>
-              <span class="mcgill-joint">
-                <span class="reference julich-bar"> 
-                  Amunts K, Lepage C, Borgeat L, Mohlberg H, Dickscheid T, Rousseau ME, Bludau S, Bazin PL, Lewis LB, Oros-Peusquens AM, Shah NJ, Lippert T, Zilles K, Evans AC (2013) <cite>BigBrain: An ultrahigh-resolution 3D human brain model</cite>. Science, 340(6139): 1472-1475. <a href="https://science.sciencemag.org/content/340/6139/1472">link</a>
-                </span>
-              </span><br>
-              
-             <!--  <span class="horizontal-rule">Joint Publications</span> -->
-            </p>
-          </li>
 
-          <!-- theses -->
-          <li class="grey-border">
-            <h3 class="title">
-              <span class="fa fa-plus"></span>
-              <p class="question text-center">Dissertations</p>
-            </h3>
-            <p class="answer">
-              <span class="reference other-bar">
-                <cite>Jordan DeKraker, PhD, U. of Western Ontario, 2020</cite>. 
-                <a href="https://ir.lib.uwo.ca/etd/7443/" target="_blank">link</a>,
-              </span><br>
-              <span class="reference julich-bar">
-                <cite>Hannah Spitzer, PhD Thesis, Forschungszentrum Jülich GmbH, 2020</cite>. 
-                <a href="http://juser.fz-juelich.de/record/877613/">link</a>
-              </span><br>
-              <span class="reference mcgill-bar">
-                <cite>Thomas Funck, PhD, McGill University, 2020</cite>. 
-                <a href="https://escholarship.mcgill.ca/concern/theses/4m90f0643?locale=en">link</a>
-              </span><br>
-              <span class="reference mcgill-bar">
-                <cite>Konrad Wagstyl, PhD, Cambridge, 2018</cite>. 
-                <a href="https://doi.org/10.17863/CAM.20836">doi</a>
-              </span><br>
-              <span class="reference other-bar">
-                <cite>Jordan DeKraker, MSc, U. of Western Ontario, 2016</cite>. 
-                <a href="https://ir.lib.uwo.ca/etd/3918/" target="_blank">link</a>,
-              </span><br>
-            </p>
-          </li>
+      <div class="full-width " id="reference-list">
+        <div class="flex-center mt-2" id="loading-panel">
+        </div>
 
+        <div id="ref-preview-panel" class="ref-details-panel">
+          <button class="closebtn" onclick="closeNav()">&rarr;</button>
 
-          <!-- Conference Material -->
-          <li class="grey-border">
-            <h3 class="title">
-              <span class="fa fa-plus"></span>
-              <p class="question text-center">Conference Materials</p>
-            </h3>
-            <p class="answer">
-              <span class="reference mcgill-bar"> 
-                Areces-Gonzalez A, Paz-Linares D, Huang S, Wang Y, Riaz U, González-Mitjans A, Ahmed Z, Wang Q, Gonzalez-Moreira E, Bosch-Bayard J, Valdés-Sosa P (2020) <cite>MRI-DWI-EEG pipeline for individualized insilico BigBrain like preparation</cite>. OHBM 2020 Montreal. <a href="https://cdn-akamai.6connex.com/645/1827//MRI-DWI-MEEG_pipeline_for_individualized_insilico_BigBrain_like_preparation_15919784206704081.pdf" target="_blank">Poster</a>
-              </span><br>
-              <span class="reference mcgill-bar"> 
-                Bezgin G, McIntosh AR, Rosa-Neto P, Evans AC (2020) <cite>Mapping cross-scale brain data using inter-atlas connectivity transformation (IntACT)</cite>. OHBM 2020 Montreal. <a href="https://cdn-akamai.6connex.com/645/1827//OHBM_poster_IntACT_20200611_15921897312875258.pdf" target="_blank">Poster</a>
-              </span><br>
-              <span class="reference mcgill-bar"> 
-                Christidis N, DeKraker J, Xiao Y, Köhler S, Steven DA, Khan AR (2020) <cite>Piriform cortex parcellation through unfolding and clustering of laminar features in the 3D BigBrain</cite>. OHBM 2020 Montreal. <a href="https://cdn-akamai.6connex.com/645/1827//Nickolas_Christidis_Poster_OHBM_15922106454101302.pdf" target="_blank">Poster</a>
-              </span><br>
-              <span class="reference mcgill-bar"> 
-                Funck T, Palomero-Gallagher N, Wagstyl K, Omidyeganeh M, Lepage C, Toussaint PJ, Thiel A, Zilles K, Evans AC (2020) <cite>Towards a dataset of 20 ultra-high resolution 3D atlases of human neurotransmitter receptor binding sites</cite>. OHBM 2020 Montreal. <a href="https://cdn-akamai.6connex.com/645/1827//Funck_OHBM2020_15920849548887474.pdf" target="_blank">Poster</a>
-              </span><br>
-              <span class="reference mcgill-bar"> 
-                Lewis LB, Lepage CY, Glasser MF, Coalson TS, Van Essen DC, Evans AC (2020) <cite>A multimodal surface matching (MSM) surface registration pipeline to bridge atlases across the MNI and FreeSurfer / Human Connectome Project worlds</cite>. OHBM 2020 Montreal. <a href="https://cdn-akamai.6connex.com/645/1827//Lewis_HBM2020_June_12_2020_15919860147975808.pdf" target="_blank">Poster</a>
-              </span><br>
-              <span class="reference mcgill-bar"> 
-                Jones SL, Lepage C, Omidyeganeh M, Toussaint PJ, Lewis LB, Borgeat L, Massicotte P, Altinkaya A, Nguyen TV, Sadikot A, Evans AC, Pruessner JC (2020) <cite>An atlas of the human hypothalamus at ultra-high resolution using the BigBrain</cite>. OHBM 2020 Montreal. <a href="https://cdn-akamai.6connex.com/645/1827//JonesEtAl_OHBM_HYP_bigBrain_FINAL_website_15922317350352804.pdf" target="_blank">Poster</a>
-              </span><br>
-              <span class="reference mcgill-bar"> 
-                Omidyeganeh M, Lepage C, Wagstyl K, Spitzer H, Dickscheid T, Amunts K, Evans A (2020) <cite>Non-linear registration of 1µm histology sections into 3D 20µm BigBrain space</cite>. OHBM 2020 Montreal. <a href="https://cdn-akamai.6connex.com/645/1827//momid2020-hbm_v0_15922467722754183.pdf" target="_blank">Poster</a>
-              </span><br>
-              <span class="reference mcgill-bar"> 
-                Toussaint PJ, Lo D, Wenzel S, Dickscheid T, Adalat R, Amunts K, Evans AC (2020) <cite>The BigBrain Project web platform as a pedagogical tool</cite>. OHBM 2020 Montreal. <a href="https://cdn-akamai.6connex.com/645/1827//ohbm2020_poster1970_pjtoussaint_1593017959486762.pdf" target="_blank">Poster</a>
-              </span><br>
-              <span class="reference mcgill-bar"> 
-                Zeighami Y, Bakken T, Hawrylycz M, Evans A (2020) <cite>Brain disorders taxonomy: A transcriptomics point of view</cite>. OHBM 2020 Montreal. <a href="https://cdn-akamai.6connex.com/645/1827//Brain_disorders_taxonomy_from_a_transcriptomics_point_of_view_15930173643013739.pdf" target="_blank">Poster</a>
-              </span><br>
+          <div class="ref-tab">
+            <button class="tab-link" id="Info-button" onclick="selectRefTab('Info')">Info</button>
+            <button class="tab-link display-none" id="Notes-button" onclick="selectRefTab('Notes')">Notes</button>
+            <button class="tab-link display-none" id="Tags-button" onclick="selectRefTab('Tags')">Tags</button>
+            <button class="tab-link display-none" id="Attachments-button" onclick="selectRefTab('Attachments')">Attachments</button>
+          </div>
 
-              <span class="reference mcgill-bar"> 
-                Wagstyl, K. et al.: <cite>BigBrain: Automated identification of cortical layers in the primary visual cortex</cite>, HBM 2017. <a href="http://mcin-cnim.ca/wp-content/uploads/2017/08/Wagstyl-HBM-2017.png" target="_blank">link</a>
-              </span><br>
-              <span class="reference mcgill-bar"> 
-                Lepage, C. et al.: <cite>BigBrain: From Artifact Corrections, Alignment, and Optical-Balancing to Segmentation and Surface Extraction, RBIQ/QBIN Toward a super-big brain: promises and pitfalls of microstructural imaging</cite>, Montreal, August 2016. <a href="http://mcin-cnim.ca/wp-content/uploads/2017/08/RBIQ2016BigBrain.png" target="_blank">link</a>
-              </span><br>
-              <span class="reference mcgill-bar"> 
-                Wagstyl, K. et al.: <cite>Automated Analysis of Laminar Structure in the Cerebral Cortex</cite>, HBM 2016. <a href="http://mcin-cnim.ca/wp-content/uploads/2017/08/Wagstyl-RBIQ-2017.png" target="_blank">link</a>
-              </span><br>
-              <span class="reference mcgill-bar"> 
-                Lewis, L.B. et al.: <cite>BigBrain: Initial Tissue Classification and Surface Extraction</cite>, HBM 2014 <a href="https://bigbrain.loris.ca/papers/HBM2014poster.pdf" target="_blank">link</a>
-              </span><br>
-              <span class="reference julich-bar"> 
-                Bludau, S. et al.: <cite>"Two new Cytoarchitectonic Areas of the Human Frontal Pole"</cite>, OHBM 2012 <a href="https://bigbrain.loris.ca/papers/Poster-A0-OHBM-2012.pdf" target="_blank">link</a>
-              </span><br>
-              <span class="reference mcgill-bar"> 
-                Lepage, C. et al.: <cite>"Automatic Repair of Acquisition Defects in Reconstruction of Histology Sections of a Human Brain"</cite>, HBM 2010 <a href="https://bigbrain.loris.ca/papers/HBM2010poster.pdf" target="_blank">link</a>
-              </span><br>
-            </p>
-          </li>
+          <div id="Info" class="tab-content">
+            <div id="ref-preview-panel-info">
+            </div>
+          </div>
 
-          <!-- press -->
-          <li class="grey-border">
-            <h3 class="title">
-              <span class="fa fa-plus"></span>
-              <p class="question text-center">Press</p>
-            </h3>
-            <p class="answer">
-              <span class="reference julich-bar"> 
-                German Interview with Katrin Amunts <cite>Dem Gehirn auf der Spur</cite>, <a href="https://effzett.fz-juelich.de/3-20/dem-gehirn-auf-der-spur/" target="_blank">link</a>
-              </span><br>
-              <span class="reference julich-bar"> 
-                Interview with Katrin Amunts at France24's Tech24 about Julich-Brain, the world's first 3D atlas of the human brain, <cite>Inside the human brain</cite>, video 2:45 - 8:02 <a href="https://www.france24.com/en/tv-shows/tech-24/20201016-inside-the-human-brain" target="_blank">link</a>
-              </span><br>
-              <span class="reference julich-bar"> 
-                German Interview with Katrin Amunts <cite>'WIE SIEHT DIE HIRNFORSCHUNG DER ZUKUNFT AUS?'</cite> <a href="https://www.ghst.de/interview-amunts/" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                <cite>New EBRAINS-enabled tool to help guide surgery in drug-resistant epilepsy patients</cite>, Scaling up the potential for personalised brain representation with the help of large brain data sets from the EBRAINS Brain Atlas, including the most detailed 3D representation of the brain’s anatomy, the BigBrain, at a resolution of 20 micrometers. <a href="https://ebrains.eu/news/new-ebrains-enabled-tool-helps-guide-epilepsy-surgery/" target="_blank">link</a>
-              </span><br>
-              <span class="reference julich-bar"> 
-                Katrin Amunts talking about building a digital model of the brain at NewsTalk <cite>'Futureproof with Jonathan McCrea'</cite>, a podcast. 00:13:59 to 00:33:58 <a href="https://www.newstalk.com/podcasts/futureproof-with-jonathan-mccrea/building-a-brain" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                <cite>Deep learning networks reflect cytoarchitectonic features used in brain mapping</cite>, Kai Kiwitz, Christian Schiffer, Hannah Spitzer, Timo Dickscheid & Katrin Amunts, Dec 2020, <a href="https://www.nature.com/articles/s41598-020-78638-y" target="_blank">link</a>
-              </span><br>
-              <span class="reference julich-bar"> 
-                <cite>Mikrometer um Mikrometer: Dem Gehirn auf der Spur</cite>, PR of FZJ about the launch of HIBALL, July 2020, <a href="https://www.fz-juelich.de/portal/DE/Presse/beitraege/2020/2020-06-26-hiball/artikel.html?nn=2297174" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                <cite>The human brain built by AI: A transatlantic collaboration</cite>, HIBALL at Laboratory News UK, July 2020, <a href="https://www.labnews.co.uk/article/2030692/new-transatlantic-lab-decodes-the-brain-with-ai" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                <cite>A centerpiece of EBRAINS’ human brain atlas is presented in “Science”</cite>, Véronique Morin, July 2020, <a href="https://www.fz-juelich.de/SharedDocs/Pressemitteilungen/UK/EN/2020/2020-07-31-julich-brain-atlas_en.html" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                <cite>Six découvertes et contributions québécoises marquantes de la dernière décennie</cite>, Forschungszentrum Jülich, Dec 2019, <a href="https://www.journaldequebec.com/2019/12/31/les-decouvertes-quebecoises-marquantes-de-la-derniere-decennie" target="_blank">link</a>
-              </span><br>
-              <span class="reference mcgill-bar"> 
-                <cite>Interview with AC Evans for McGill Reporter</cite>, Jennifer Morrow, June 26 2019, <a href="https://reporter.mcgill.ca/four-burning-questions-for-alan-c-evans/" target="_blank">link</a>
-              </span><br>
-              <span class="reference julich-bar"> 
-                <cite>Interview with K Amunts at PASC17 conference - section on BB</cite>, Simone Ulmer, July 26 2019, <a href="https://www.pasc-conference.org/pasc17-interview-with-katrin-amunts/" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                <cite>BRAIN Research: They Wish It Was Only Rocket Science</cite>, Geralyn Miller, June 25 2015, <a href="https://possibility.teledyneimaging.com/brain-research-they-wish-it-was-only-rocket-science/" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                <cite>Huron Technologies and the BigBrain</cite>, Huron Digital Pathology, May 11 2015, <a href="https://www.news-medical.net/whitepaper/20150511/Using-Whole-Mount-Slide-Scanners-to-Acquire-High-Resolution-Brain-Images.aspx" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                <cite>Jülich Supercomputing Centre and the BigBrain project</cite>, Lenovo Blog, Feb 02 2015, <a href="http://blog.lenovo.com/en/blog/juelich-supercomputing-centre-and-the-bigbrain-project/" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                <cite>Human Brain in 3-D Detail</cite>, Kate McGowan, Jan  2014, <a href="http://discovermagazine.com/2014/jan-feb/54-human-brain-in-3d-detail" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                <cite>Significant Science of 2013: Brain Mapping Gets a Big Boost</cite>, Allison Eck, Dec 27 2013, <a href="https://www.pbs.org/wgbh/nova/article/significant-science-of-2013-brain-mapping-gets-big-boost/" target="_blank">link</a>
-              </span><br>
-              <span class="reference mcgill-bar"> 
-                <cite>Prof. Evans's Lecture-BigBrain: An ultra-high resolution 3D model of human neuroanatomy</cite>, Brainnetome, July 4 2013, <a href="http://jtest.yiweihy.com/brainnetome/en/news/320-evanslecture" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                <cite>An Ultra-High-Resolution, 3D View of the Human Brain</cite>, Alzforum, June 21 2013, <a href="https://www.technologyreview.com/s/516196/a-detailed-3-d-atlas-of-a-human-brain/" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                <cite>BigBrain: Ultra-high resolution 3D map of human brain</cite>, Kristen Butler, June 21 2013, <a href="https://www.upi.com/Science_News/2013/06/21/BigBrain-Ultra-high-resolution-3D-map-of-human-brain/4801371825520/" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                <cite>BigBrain: an ultra-high-resolution 3D roadmap of the human brain</cite>, Kurzweil, June 21 2013, <a href="https://www.kurzweilai.net/bigbrain-an-ultra-high-resolution-3d-roadmap-of-the-human-brain" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                <cite>Whole human brain mapped in 3D</cite>, Helen Shen, June 20 2013, <a href="https://www.nature.com/news/whole-human-brain-mapped-in-3d-1.13245" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                <cite>Groundbreaking Brain Atlas Maps Whole Brain at Cellular Level</cite>, Becky Lang, June 20 2013, <a href="http://blogs.discovermagazine.com/d-brief/2013/06/20/new-brain-atlas-charts-individual-cells/#.XXpYq5NKhdB" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                <cite>“BigBrain” Project Makes Terabyte Map of a Human Brain</cite>, Mia Feldman, June 20 2013, <a href="https://spectrum.ieee.org/tech-talk/biomedical/imaging/bigbrain-project-makes-terabyte-map-of-a-human-brain" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                <cite>BigBrain: The Best Gray Matter Map Ever Made</cite>, William Herkewitz, June 20 2013, <a href="https://www.popularmechanics.com/science/health/a9177/bigbrain-the-best-gray-matter-map-ever-made-15611977/" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                <cite>Bigbrain: An ultra-high resolution 3-D roadmap of the human brain</cite>, American Association for the Advancement of Science, June 20 2013 2013, <a href="https://www.sciencedaily.com/releases/2013/06/130620142928.htm" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                <cite>The 'Google Earth' of 3D Brain Maps is Here</cite>, Abby Ohlheiser, June 20 2013, <a href="https://www.theatlantic.com/technology/archive/2013/06/google-earth-3d-brain-maps-here/314035/" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                <cite>El mapa Big Brain</cite>, Memeroteca, June 20 2013, <a href="https://culturacientifica.com/2013/06/20/el-mapa-big-brain/" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                <cite>“BigBrain” Model Offers Microscopic Views of Human Brain</cite>, Rebecca Voelker, June 20 2013, <a href="https://newsatjama.jama.com/2013/06/20/bigbrain-model-offers-microscopic-views-of-human-brain/" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                <cite>The Human Brain in Exquisite Detail</cite>, Ruth Williams, June 20 2013, <a href="https://www.the-scientist.com/daily-news/the-human-brain-in-exquisite-detail-39149" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                <cite>A Detailed 3-D Atlas of a Human Brain</cite>, Courtney Humphries, June 20 2013, <a href="https://www.technologyreview.com/s/516196/a-detailed-3-d-atlas-of-a-human-brain/" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                <cite>3D map of human brain is the most detailed ever</cite>, Sara Reardon, June 20 2013, <a href="https://www.technologyreview.com/s/516196/a-detailed-3-d-atlas-of-a-human-brain/" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                <cite>Scientists create detailed 3-D model of human brain</cite>, Melissa Healy, June 20 2013, <a href="https://www.latimes.com/science/la-xpm-2013-jun-20-la-sci-big-brain-20130621-story.html" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                <cite>The Brain: Now in Ultra High-Res 3D</cite>, Jesse Emspak, June 20 2013, <a href="https://mashable.com/2013/06/20/brain-ultra-high-resolution-3d/" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                <cite>Ultra-high resolution 3D map of a human brain</cite>, The Guarduab, June 20 2013, <a href="https://www.theguardian.com/science/neurophilosophy/2013/jun/20/ultra-high-resolution-3d-brain-map" target="_blank">link</a>
-              </span><br>
-            </p>
-          </li>
+          <div id="Notes" class="tab-content">
+            <div id="ref-preview-panel-note">
+            </div>
+          </div>
 
-          <!-- Past Events -->
-          <!-- <li class="grey-border">
-            <h3 class="title">
-              <span class="fa fa-plus"></span>
-              <p class="question text-center">Past Events</p>
-            </h3>
-            <p class="answer">
-              <span class="reference other-bar"> 
-                <cite>HIBALL Winter School 2021</cite>, 3-4 February 2021. <a href="winter-school.html" target="_blank">link</a>
-              </span><br>
-              <span class="reference julich-bar"> 
-                <cite>BigBrain Workshop 2019 Düsseldorf: AI methods and HPC based processing</cite>, 20-21 August 2019. <a href="https://indico-jsc.fz-juelich.de/event/98/" target="_blank">link</a>
-              </span><br>
-              <span class="reference mcgill-bar"> 
-                <cite>BigBrain Workshop 2017 Montreal: From open data to novel applications</cite>, 3 November 2017. <a href="http://mcin.ca/bigbrain-workshop-2017-montreal-from-open-data-to-novel-applications/" target="_blank">link</a>
-              </span><br>
-              <span class="reference julich-bar"> 
-                <cite>BigBrain Workshop 2015 Jülich: BigBrain and its applications</cite>, March 31 - April 1, 2015. <a href="https://www.fz-juelich.de/inm/inm-1/EN/Aktuelles/BigBrain%20meeting/_node.html" target="_blank">link</a>
-              </span><br>
-            </p>
-          </li>  -->
+          <div id="Tags" class="tab-content">
+            <div id="ref-preview-panel-tag">
+            </div>
+          </div>
 
-          <!-- Joint Publications -->
-          <!-- <li class="grey-border">
-            <h3 class="title">
-              <span class="fa fa-plus"></span>
-              <p class="question text-center">Selected Joint Publications</p>
-            </h3>
-            <p class="answer">
-              <span class="reference mcgill-bar">
-                Wagstyl K, Lepage C, Bludau S, Zilles K, Fletcher PC, Amunts K, Evans AC.v <cite>Mapping Cortical Laminar Structure in the 3D BigBrain</cite>. Cereb Cortex. 2018 Jul 1;28(7):2551-2562. doi: <a href="https://doi.org/10.1093/cercor/bhy074" target="_blank">link</a> 
-              </span><br>
-              <span class="reference mcgill-bar"> 
-                Nichols TE, Das S, Eickhoff SB, Evans AC, Glatard T, Hanke M, Kriegeskorte N, Milham MP, Poldrack RA, Poline JB, Proal E, Thirion B, Van Essen DC, White T, Yeo BT. (2017) <cite>Best practices in data analysis and sharing in neuroimaging using MRI</cite>. Nature Neuroscience. 20:299-303. <a href="https://doi.org/10.1038/nn.4500" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-                Reid AT, Hoffstaedter F, Gong G, Laird AR, Fox P, Evans AC, Amunts K, Eickhoff SB. (2017) <cite>A seed-based cross-modal comparison of brain connectivity measures</cite>. Brain Structure and Function. 222(3):1131-1151 doi: <a href="https://doi.org/10.1007/s00429-016-1264-3" target="_blank">link</a>
-              </span><br>
-              <span class="reference mcgill-bar"> 
-                Reid AT, Lewis J, Bezgin G, Khundrakpam B, Eickhoff SB, McIntosh AR, Bellec P, Evans AC (2016) <cite>A cross-modal, cross-species comparison of connectivity measures in the primate brain</cite>. Neuroimage. 125: 311-331. doi: <a href="https://doi.org/10.1016/j.neuroimage.2015.10.057" target="_blank">link</a>
-              </span><br>
-              <span class="reference julich-bar">
-                Caspers S, Moebus S, Lux S, Pundt N, Schütz H, Mühleisen TW, Gras V, Eickhoff SB, Romanzetti S, Stöcker T, Stirnberg R, Kirlangic ME, Minnerop M, Pieperhoff P, Mödder U, Das S, Evans AC, Jöckel KH, Erbel R, Cichon S, Nöthen MM, Sturma D, Bauer A, Jon Shah N, Zilles K, Amunts K. <cite>Studying variability in human brain aging in a population-based German cohort-rationale and design of 1000BRAINS</cite>. Front Aging Neurosci. 2014 Jul 14;6:149. doi: <a href="https://doi.org/10.3389/fnagi.2014.00149" target="_blank">link</a> eCollection 2014.
-              </span><br>
-              <span class="reference julich-bar">
-                Amunts K, Lepage C, Borgeat L, Mohlberg H, Dickscheid T, Rousseau MÉ, Bludau S, Bazin PL, Lewis LB, Oros-Peusquens AM, Shah NJ, Lippert T, Zilles K, Evans AC. <cite>BigBrain: an ultrahigh-resolution 3D human brain model</cite>. Science. 2013 Jun 21;340(6139):1472-5. doi: <a href="https://doi.org/10.1126/science.1235381" target="_blank">link</a>
-              </span><br>
-              <span class="reference">
-                Oishi K, Huang H, Yoshioka T, Ying SH, Zee DS, Zilles K, Amunts K, Woods R, Toga AW, Pike GB, Rosa-Neto P, Evans AC, van Zijl PC, Mazziotta JC, Mori S. <cite>Superficially located white matter structures commonly seen in the human and the macaque brain with diffusion tensor imaging</cite>. Brain Connect. 2011;1(1):37-47. doi: <a href="https://doi.org/10.1089/brain.2011.0005" target="_blank">link</a>
-              </span><br>
-              <span class="reference">
-                Oishi K, Zilles K, Amunts K, Faria A, Jiang H, Li X, Akhter K, Hua K, Woods R, Toga AW, Pike GB, Rosa-Neto P, Evans A, Zhang J, Huang H, Miller MI, van Zijl PC, Mazziotta J, Mori S. <cite>Human brain white matter atlas: identification and assignment of common anatomical structures in superficial white matter</cite>. Neuroimage. 2008 Nov 15;43(3):447-57. doi:  
-                <a href="https://doi.org/10.1016/j.neuroimage.2008.07.009" target="_blank">link</a> Epub 2008 Jul 18.
-              </span><br>
-              <span class="reference julich-bar">
-                Eickhoff SB, Paus T, Caspers S, Grosbras MH, Evans AC, Zilles K, Amunts K. <cite>Assignment of functional activations to probabilistic cytoarchitectonic areas revisited</cite>. Neuroimage. 2007 Jul 1;36(3):511-21. Epub 2007 Apr 10. Review. 
-                doi: <a href="https://doi.org/https://doi.org/10.1016/j.neuroimage.2007.03.060" target="_blank">link</a>
-              </span><br>
-              <span class="reference">
-                Hulshoff Pol HE, Schnack HG, Posthuma D, Mandl RC, Baaré WF, van Oel C, van Haren NE, Collins DL, Evans AC, Amunts K, Bürgel U, Zilles K, de Geus E, Boomsma DI, Kahn RS. <cite>Genetic contributions to human brain morphology and intelligence. J Neurosci</cite>. 2006 Oct 4;26(40):10235-42. doi: <a href="https://doi.org/10.1523/JNEUROSCI.1312-06.2006" target="_blank">link</a>
-              </span><br>
-              <span class="reference">
-                Mazziotta J, Toga A, Evans A, Fox P, Lancaster J, Zilles K, Woods R, Paus T, Simpson G, Pike B, Holmes C, Collins L, Thompson P, MacDonald D, Iacoboni M, Schormann T, Amunts K, Palomero-Gallagher N, Geyer S, Parsons L, Narr K, Kabani N, Le Goualher G, Boomsma D, Cannon T, Kawashima R, Mazoyer B. <cite>A probabilistic atlas and reference system for the human brain: International Consortium for Brain Mapping (ICBM)</cite>. Philos Trans R Soc Lond B Biol Sci. 2001 Aug 29;356(1412):1293-322. doi: <a href="https://doi.org/10.1098/rstb.2001.0915" target="_blank">link</a>
-              </span><br>
-              <span class="reference">
-                Mazziotta J, Toga A, Evans A, Fox P, Lancaster J, Zilles K, Woods R, Paus T, Simpson G, Pike B, Holmes C, Collins L, Thompson P, MacDonald D, Iacoboni M, Schormann T, Amunts K, Palomero-Gallagher N, Geyer S, Parsons L, Narr K, Kabani N, Le Goualher G, Feidler J, Smith K, Boomsma D, Hulshoff Pol H, Cannon T, Kawashima R, Mazoyer B. <cite>A four-dimensional probabilistic atlas of the human brain. J Am Med Inform Assoc</cite>. 2001 Sep-Oct;8(5):401-30. doi: <a href="https://doi.org/10.1136/jamia.2001.0080401" target="_blank">link</a>
-              </span><br>
-              <span class="reference">
-                Neuro Cloud Consortium. Electronic address: jovo@jhu.edu; <cite>Neuro Cloud Consortium. To the Cloud! A Grassroots Proposal to Accelerate Brain Science Discovery</cite>. Neuron. 2016 Nov 2;92(3):622-627. doi:
-                <a href="https://doi.org/10.1016/j.neuron.2016.10.033" target="_blank">link</a>
-              </span><br>
-              <span class="reference mcgill-bar"> 
-                Reid AT, Hoffstaedter F, Gong G, Laird AR, Fox P, Evans AC, Amunts K, Eickhoff SB. <cite>A seed-based cross-modal comparison of brain connectivity measures. Brain Struct Funct</cite>. 2017 Apr;222(3):1131-1151. Epub 2016 Jul 2. doi: <a href="https://doi.org/10.1007/s00429-016-1264-3" target="_blank">link</a>
-              </span><br>
-              <span class="reference">
-                Lancaster JL, Tordesillas-Gutiérrez D, Martinez M, Salinas F, Evans A, Zilles K, Mazziotta JC, Fox PT. <cite>Bias between MNI and Talairach coordinates analyzed using the ICBM-152 brain template. Hum Brain Mapp</cite>. 2007 Nov;28(11):1194-205. 
-                <a href="https://doi.org/10.1002/hbm.20345" target="_blank">link</a>
-              </span><br>
-            </p>
-          </li>  -->
+          <div id="Attachments" class="tab-content">
+            <div id="ref-preview-panel-attachment">
+            </div>
+          </div>
+        </div>
 
-          <!-- Related Publications -->
-          <li class="grey-border">
-            <h3 class="title">
-              <span class="fa fa-plus"></span>
-              <p class="question text-center">Related Publications</p>
-            </h3>
-            <p class="answer">
-              <span class="reference mcgill-bar"> 
-                Glatard T, Kiar G, Aumentado-Armstrong T, Beck N, Bellec P, Bernard R, Bonnet A, Brown ST, Camarasu-Pop S, Cervenansky F, Das D, Ferreira da Silva R, Flandin G, Girard P, Gorgolewski KJ, Guttmann CRG, Hayot-Sasson V, Quirion PO, Rioux P, Rousseau ME, Evans AC. <cite>Boutiques: a flexible framework to integrate command-line applications in computing platforms</cite>. GigaScience, Volume 7, Issue 5, May 2018, doi: <a href="https://doi.org/10.1093/gigascience/giy016" target="_blank">link</a>
-              </span><br>
-              <span class="reference mcgill-bar"> 
-               Sherif T, Rioux P, Rousseau ME, Kassis N, Beck N, Adalat R, Das S, Glatard T, Evans AC. <cite>CBRAIN: a web-based, distributed computing platform for collaborative neuroimaging research</cite>. Front Neuroinform. 8:54, 2014, doi: <a href="https://doi.org/10.3389/fninf.2014.00054" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-               Sanz Leon P, Knock S, Woodman M, Domide L, Mersmann J, McIntosh A, Jirsa V. <cite>The Virtual Brain: a simulator of primate brain network dynamics</cite>. Front Neuroinform. 7:10, 2013, doi: <a href="https://doi.org/10.3389/fninf.2013.00010" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-               Das S, Zijdenbos AP, Harlap J, Vins D, Evans AC. <cite>LORIS: a web-based data management system for multi-center studies</cite>. Front Neuroinform. 5:37, 2012, doi: <a href="https://doi.org/10.3389/fninf.2011.00037" target="_blank">link</a>
-              </span><br>
-              <span class="reference"> 
-               Massicotte P, Blais F, Godin G,  Beraldin J, Borgeat L, Poirier G. <cite>Visualizing and Analyzing the Mona Lisa</cite>. IEEE Computer Graphics and Applications. 27(6):1558-1756, 2007, doi: <a href="https://doi.org/10.1109/MCG.2007.162" target="_blank">link</a>
-              </span><br>
-            </p>
-          </li>
-        </ul>
       </div>
+
+
     </div>
   </section>
   <div class="clear-all"></div>
