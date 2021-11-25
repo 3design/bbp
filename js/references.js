@@ -58,7 +58,9 @@ const fetchReferences = ({sort = null, direction= null, queryString = null} = {}
         .then(data => {
 
             const getCreatorName = (creators) => {
-                return creators.map(c => c.name? c.name : ` ${c.firstName && c.firstName} ${c.lastName && c.lastName}`)
+
+              return creators.map(c => c.name? c.name :
+                ` ${c.lastName && c.lastName} ${c.firstName && c.firstName.replace(/\./g,'').replace(/-/g, ' ').split(' ').map(n => n[0].toUpperCase()).join(' ')}`)
             }
 
             disableLoading()
@@ -66,17 +68,22 @@ const fetchReferences = ({sort = null, direction= null, queryString = null} = {}
 
             const listEl = document.getElementById('ref-list-el')
 
+            // Style of the reference
+            // [Icon][List of authors] ([PublicationYear]) [Title]. [publicationTitle/proceedingsTitle], [volume] ([issue]): [pages], [DOI]
+            // The list of authors
+            // [Last name] [First initials], [Last name] [First initials], ..., [Last name] [First initials]
+
             const html = `<div id="ref-list-el">${data.map((d, i) =>
-                `<p className="reference julich-bar"
+                `<p onclick="openNav(${i})"
+                    className="reference julich-bar"
                     class="lt-grey-bg ref-item">
                     <span style="font-size: 20px">${d.data.itemType === 'journalArticle'? '📄' : d.data.itemType === 'thesis'? '🎓' : d.data.itemType === 'conferencePaper'? '📝' : d.data.itemType === 'report'? '📈' : '🖥'}</span>
-                    <span onclick="openNav(${i})" class="ref-title">${d.data.title}.</span>      
-                    <br>
-              
-                    <i>${getCreatorName(d.data.creators)},</i>
-                    ${d.data.date},
+                    ${getCreatorName(d.data.creators)},
+                    ${d.data.date ? `(${d.data.date})` : ''}
+                    <span class="ref-title">${d.data.title}.</span>
+
                     ${d.data.publicationTitle? `${d.data.publicationTitle},` : d.data.proceedingsTitle? `${d.data.proceedingsTitle},` : ''}
-                    ${d.data.volume? `${d.data.volume}(${d.data.issue}),` : ''}
+                    ${d.data.volume? `${d.data.volume} ${d.data.issue? `(${d.data.issue})` : ''} : ` : ''}
                     ${d.data.pages? `${d.data.pages},` : ''}
                     ${d.data.DOI? `<a href="https://doi.org/${d.data.DOI}" target="_blank">${d.data.DOI}</a>` : ''}
                 </p><br>`
@@ -135,7 +142,7 @@ const openNav = (i = 0) => {
     const panel = document.getElementById('ref-preview-panel')
     panel.style.width = '600px'
 
-    const infoHtml = `<div id="ref-detail-info"> 
+    const infoHtml = `<div id="ref-detail-info">
        <div class="flex-column">
         ${ref.itemType? `<div class="flex lt-grey-bg ref-detail-row">
             <div class="ref-detail-row-key">Type</div>
@@ -145,122 +152,122 @@ const openNav = (i = 0) => {
             <div class="ref-detail-row-key">Title</div>
             <div class="ref-detail-row-value">${ref.title}</div>
         </div>` : ''}
-        
+
         ${ref.creators ? `<div class="flex lt-grey-bg ref-detail-row">
             <div class="ref-detail-row-key">${ref.itemType === 'presentation'? 'Presenter' : 'Author'}${ref.creators.length > 1? 's' : ''}</div>
             <div class="ref-detail-row-value">${ref.creators && ref.creators.map((c, i) => (c.firstName + ' ' + c.lastName)).join(', ')}</div>
         </div>` : ''}
-        
+
         ${ref.presentationType ? `<div class="flex lt-grey-bg ref-detail-row">
             <div class="ref-detail-row-key">Presentation type</div>
             <div class="ref-detail-row-value">${ref.presentationType}</div>
-        </div>` : ''}        
-        
+        </div>` : ''}
+
         ${ref.reportType ? `<div class="flex lt-grey-bg ref-detail-row">
             <div class="ref-detail-row-key">Report type</div>
             <div class="ref-detail-row-value">${ref.reportType}</div>
         </div>` : ''}
-        
+
         ${ref.reportNumber ? `<div class="flex lt-grey-bg ref-detail-row">
             <div class="ref-detail-row-key">Report number</div>
             <div class="ref-detail-row-value">${ref.reportNumber}</div>
         </div>` : ''}
-        
+
         ${ref.institution ? `<div class="flex lt-grey-bg ref-detail-row">
             <div class="ref-detail-row-key">Institution</div>
             <div class="ref-detail-row-value">${ref.institution}</div>
         </div>` : ''}
-     
+
         ${ref.thesisType ? `<div class="flex lt-grey-bg ref-detail-row">
             <div class="ref-detail-row-key">Thesys type</div>
             <div class="ref-detail-row-value">${ref.thesisType}</div>
-        </div>` : ''}                
-                        
+        </div>` : ''}
+
         ${ref.university ? `<div class="flex lt-grey-bg ref-detail-row">
             <div class="ref-detail-row-key">University</div>
             <div class="ref-detail-row-value">${ref.university}</div>
-        </div>` : ''}    
-                                  
+        </div>` : ''}
+
         ${ref.meetingName ? `<div class="flex lt-grey-bg ref-detail-row">
             <div class="ref-detail-row-key">Meeting name</div>
             <div class="ref-detail-row-value">${ref.meetingName}</div>
-        </div>` : ''}        
-                        
+        </div>` : ''}
+
         ${ref.publicationTitle ? `<div class="flex lt-grey-bg ref-detail-row">
             <div class="ref-detail-row-key">Publication</div>
             <div class="ref-detail-row-value">${ref.publicationTitle}</div>
         </div>` : ''}
-                
+
         ${ref.volume ? `<div class="flex lt-grey-bg ref-detail-row">
             <div class="ref-detail-row-key">Volume</div>
             <div class="ref-detail-row-value">${ref.volume}</div>
         </div>` : ''}
-          
+
         ${ref.issue ? `<div class="flex lt-grey-bg ref-detail-row">
             <div class="ref-detail-row-key">Issue</div>
             <div class="ref-detail-row-value">${ref.issue}</div>
         </div>` : ''}
-        
+
         ${ref.pages ? `<div class="flex lt-grey-bg ref-detail-row">
             <div class="ref-detail-row-key">Pages</div>
             <div class="ref-detail-row-value">${ref.pages}</div>
         </div>` : ''}
-        
+
         ${ref.date ? `<div class="flex lt-grey-bg ref-detail-row">
             <div class="ref-detail-row-key">Date</div>
             <div class="ref-detail-row-value">${ref.date}</div>
         </div>` : ''}
-        
+
         ${ref.conferenceName ? `<div class="flex lt-grey-bg ref-detail-row">
             <div class="ref-detail-row-key">Conference</div>
             <div class="ref-detail-row-value">${ref.conferenceName}</div>
         </div>` : ''}
-        
+
         ${ref.proceedingsTitle ? `<div class="flex lt-grey-bg ref-detail-row">
             <div class="ref-detail-row-key">Proceedings title</div>
             <div class="ref-detail-row-value">${ref.proceedingsTitle}</div>
         </div>` : ''}
-        
+
         ${ref.place ? `<div class="flex lt-grey-bg ref-detail-row">
             <div class="ref-detail-row-key">Place</div>
             <div class="ref-detail-row-value">${ref.place}</div>
         </div>` : ''}
-        
+
         ${ref.series ?`<div class="flex lt-grey-bg ref-detail-row">
             <div class="ref-detail-row-key">Series</div>
             <div class="ref-detail-row-value">${ref.series}</div>
         </div>` : ''}
-          
+
         ${ref.seriesTitle ? `<div class="flex lt-grey-bg ref-detail-row">
             <div class="ref-detail-row-key">Serues title</div>
             <div class="ref-detail-row-value">${ref.seriesTitle}</div>
         </div>` : ''}
-        
+
         ${ref.seriesText ? `<div class="flex lt-grey-bg ref-detail-row">
             <div class="ref-detail-row-key">Series text</div>
             <div class="ref-detail-row-value">${ref.seriesText}</div>
         </div>` : ''}
-        
+
         ${ref.journalAbbeviation ? `<div class="flex lt-grey-bg ref-detail-row">
             <div class="ref-detail-row-key">Journal Abbr</div>
             <div class="ref-detail-row-value">${ref.journalAbbeviation}</div>
         </div>` : ''}
-   
+
         ${ref.language ? `<div class="flex lt-grey-bg ref-detail-row">
             <div class="ref-detail-row-key">Language</div>
             <div class="ref-detail-row-value">${ref.language}</div>
         </div>` : ''}
-        
+
         ${ref.DOI ? `<div class="flex lt-grey-bg ref-detail-row">
             <div class="ref-detail-row-key">DOI</div>
             <div class="ref-detail-row-value">${`<a href="https://doi.org/${ref.DOI}" target="_blank">${ref.DOI}</a>`}</div>
         </div>` : ''}
-        
+
         ${ref.ISSN ? `<div class="flex lt-grey-bg ref-detail-row">
             <div class="ref-detail-row-key">ISSN</div>
             <div class="ref-detail-row-value">${ref.ISSN}</div>
         </div>` : ''}
-        
+
         ${ref.shortTitle ? `<div class="flex lt-grey-bg ref-detail-row">
             <div class="ref-detail-row-key">Short title</div>
             <div class="ref-detail-row-value">${ref.shortTitle}</div>
@@ -269,7 +276,7 @@ const openNav = (i = 0) => {
             <div class="ref-detail-row-key">URL</div>
             <div class="ref-detail-row-value">${`<a href="${ref.url}" target="_blank">${ref.url}</a>`}</div>
         </div>` : ''}
-        
+
         <!--${ref.accessDate ? `<div class="flex lt-grey-bg ref-detail-row">
             <div class="ref-detail-row-key">Accessed</div>
             <div class="ref-detail-row-value">${ref.accessDate}</div>
