@@ -1,0 +1,173 @@
+<!doctype html>
+<html>
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-145481065-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-145481065-1');
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+<link rel="manifest" href="favicon/site.webmanifest">
+<link rel="mask-icon" href="favicon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<meta name="author" content="Derek Lo @ 3design-dlo.com">
+<!-- general -->
+<link rel="stylesheet" type="text/css" href="css/styles.css" />
+<link rel="stylesheet" type="text/css" href="css/timeline.css" />
+<link rel="stylesheet" type="text/css" href="css/nav-styles.css" />
+<link rel="stylesheet" type="text/css" href="fonts/fonts.css" />
+<link href="css/lightbox.css" rel="stylesheet" />
+<meta charset="utf-8">
+<title>the BigBrain</title>
+<meta name="viewport" content="width=device-width">
+<meta name="description" content="This is the reference page of the website of the BigBrain Project.">
+<meta name="keywords" content="Neuro, Brain, Research, Big Data, Science, Medicine">
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="js/drop-down.js"></script>
+<script src="js/jquery.matchHeight.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="main-wrapper">
+  <div class="social-media">
+    <a href="https://twitter.com/BigBrainProject" class="tooltip">
+      <i class="fab fa-twitter-square"></i>
+      <span class="tooltiptext">Twitter</span>
+    </a>
+    <a href="mailto:info@bigbrainproject.org" class="tooltip">
+      <i class="fas fa-envelope-square"></i>
+      <span class="tooltiptext">Email</span>
+    </a>
+    <a href="#main-wrapper" class="tooltip">
+      <i class="fas fa-arrow-up"></i>
+      <span class="tooltiptext">Top</span>
+    </a>
+  </div>
+  <!-- navigation -->
+  <nav class="site-nav">
+    <div class="brand-border-1"></div>
+    <div class="brand-border-2"></div>
+    <div class="brand-border-3"></div>
+    <div class="nav-container">
+      <div class="branding"><a href="index.html">BigBrain Project</a></div>
+      <div id="showmenu">Menu</div>
+      <ul id="menu" class="nav-list hide">
+        <li class="nav-item"><a href="hiball.html"><strong>HIBALL</strong></a></li>
+        <li class="nav-item"><a href="#!">About</a>
+          <ul class="nav-dropdown">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="references.html">References</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a href="maps-and-models.html">Maps & Models</a></li>
+        <li class="nav-item"><a href="tools-and-services.html">Tools & Services</a></li>
+        <li class="nav-item"><a href="#!" class="active">Community</a>
+          <ul class="nav-dropdown">
+            <li><a href="community.html">Our Community</a></li>
+            <li><a href="news.html">News & Events</a></li>
+            <li><a href="featured.html" class="active">Featured</a></li>
+            <li><a href="https://bigbrain-forum.loris.ca/">Forum</a></li>
+            <li><a href="careers.html">Careers</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- references section -->
+  <section class="extra-pad">
+    <div class="section-content end">
+      <h1 class="full-width text-center">Featured Project</h1>
+      <h2 class="full-width text-center">The siibra toolsuite — Accessing the EBRAINS atlases interactively and programmatically</h2>
+
+      <p> Let’s introduce you to a dynamic toolsuite for interacting with the <a href="https://ebrains.eu/services/atlases">EBRAINS brain atlases!</a> siibra (software interfaces for interacting with brain atlases) is a tightly integrated toolsuite which includes siibra-explorer, an interactive 3D atlas viewer, as well as a dedicated programmatic Python client called siibra-python. The aim of siibra is to provide both programmatic and interactive access to the EBRAINS brain atlases, which include the BigBrain and MNI Colin reference spaces, for example, without duplicating software code.</p>
+      <p>siibra-explorer, the browser-based viewer for visually exploring the EBRAINS atlases, is hosted at <a href="https://atlases.ebrains.eu/viewer">https://atlases.ebrains.eu/viewer</a>. It is tightly integrated with the <a href="https://kg.ebrains.eu/">EBRAINS Knowledge Graph</a>, allowing the seamless querying of semantically and spatially anchored datasets. It allows the exploration of the regions of the human, rat, mouse and (currently pre-released) monkey brains at microscopic detail, as well as the discovery of related multimodal data features. The functionalities of the siibra-explorer include (but aren’t limited to):
+        <ul>
+          <li>Finding, selecting and navigating brain regions</li>
+          <li>Accessing different reference templates and maps supported by the EBRAINS atlases</li>
+          <li>Viewing relationships between brain regions</li>
+          <li>Accessing datasets by their location in the brain and retrieving relevant detailed information from the EBRAINS Knowledge Graph</li>
+          <li>Jumping across spatial resolutions to see the same brain regions at different scales</li>
+        </ul>
+      </p>
+      <p>siibra-python is the comprehensive Python client providing access to the EBRAINS atlases and offering an easy and well-structured way to include maps, reference templates, region definitions and linked datasets into reproducible programmatic workflows. The software is maintained on <a href="https://github.com/FZJ-INM1-BDA/siibra-python">GitHub</a>. It has been designed to allow safe and convenient interaction with brain regions from different parcellations, to provide streamlined access to multimodal data features linked to brain regions, and to perform basic analyses of region-specific data features. The intention is to unify interaction with brain atlas data at different spatial scales, including parcellations and datasets at the millimetre scale in the MNI space, as well as microstructural maps and microscopic data in the BigBrain space.</p>
+      <p>Check out the siibra toolsuite yourself under the following links. We’d also be delighted to have you participate in our discussions on GitHub!
+        <ul>
+          <li><a href="https://atlases.ebrains.eu/viewer/">siibra-explorer</a></li>
+          <li><a href="https://github.com/FZJ-INM1-BDA/siibra-explorer">siibra-explorer GitHub</a></li>
+          <li><a href="https://github.com/FZJ-INM1-BDA/siibra-python">siibra-python GitHub</a></li>
+          <li><a href="https://siibra-python.readthedocs.io/">siibra-python documentation</a></li>
+          <li><a href="https://github.com/FZJ-INM1-BDA/siibra-tutorials">siibra-python tutorials</a></li>
+        </ul>
+      </p>
+      <div class="col-2">
+        <img src="images/featured/siibra-1.png">
+        <p>Exploring the BigBrain reference space with the Multilevel Human Brain Atlas using siibra-explorer.</p>
+      </div>
+      <div class="col-2">
+        <img src="images/featured/siibra-2.png">
+        <p>Finding and retrieving neurotransmitter receptor measurements for the primary visual cortex using siibra-python</p>
+      </div>
+    </div>
+  </section>
+  <div class="clear-all"></div>
+
+  <!-- footer -->
+  <footer>  
+    <blockquote class="quote-holder">
+      <img class="quote-image" src="images/icon-aquisition.png">
+      <p class="quote-text">Share your projects on <a href="https://bigbrain-forum.loris.ca">Discourse</a></p>
+    </blockquote>
+    <div class="section-content flex">
+      <a href="https://www.fz-juelich.de/">
+        <img src="images/logo-julich.jpg">
+      </a>
+      <a href="https://mcgill.ca/">
+        <img src="images/logo-mcgill.png">
+      </a>
+    </div>
+    <p class="center" style="color: #fff;">For information please email us at <a href="mailto:info@bigbrainproject.org">info@bigbrainproject.org</a></p>
+  </footer>
+  <div class="brand-border-1"></div>
+  <div class="brand-border-2"></div>
+  <div class="brand-border-3"></div>
+</div>
+
+<!-- <script>
+    $(document).ready(function() {
+        $('#showmenu').click(function() {
+                $('.nav-list').toggleClass("hide");
+        });
+    });
+</script> -->
+
+<script>
+  $(function(){
+    $(".accordian h3").click(function(e){
+    $(".accordian ul p.answer").slideUp();
+      if ($(this).next().is(":hidden")){
+      $(this).next().slideDown();
+      }
+    });
+  });
+</script>
+
+<script>
+  $(function(){
+    $("#showmenu").click(function(e){
+    $("#menu").slideUp();
+      if ($(this).next().is(":hidden")){
+      $(this).next().slideDown();
+      }
+    });
+  });
+</script>
+</body></html>
