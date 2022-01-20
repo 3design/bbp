@@ -244,6 +244,12 @@ cite {
   padding-right: 0 !important;
   /*it's a hack, I know...*/
 }
+pre code {
+  background-color: #eee;
+  border: 1px solid #999;
+  display: block;
+  padding: 20px;
+}
 /*** 
 *
 * Content 
@@ -626,6 +632,9 @@ footer .section-content {
     max-width: 100%;
     padding: 0 0 15px;
   }
+}
+.internal-padding {
+  padding: 10px;
 }
 /* navigation */
 .brand-border-1 {
