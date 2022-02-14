@@ -59,8 +59,11 @@ const fetchReferences = ({sort = null, direction= null, queryString = null} = {}
 
             const getCreatorName = (creators) => {
 
-              return creators.map(c => c.name? c.name :
-                ` ${c.lastName && c.lastName} ${c.firstName && c.firstName.replace(/\./g,'').replace(/-/g, ' ').split(' ').map(n => n[0].toUpperCase()).join(' ')}`)
+                return creators
+                    .filter(c => !c.creatorType || c.creatorType === 'author')
+                    .map(c => c.name? c.name :
+                        ` ${c.lastName && c.lastName} ${c.firstName && c.firstName
+                            .replace(/\./g,'').replace(/-/g, ' ').split(' ').map(n => n[0].toUpperCase()).join(' ')}`)
             }
 
             disableLoading()
@@ -154,8 +157,13 @@ const openNav = (i = 0) => {
         </div>` : ''}
 
         ${ref.creators ? `<div class="flex lt-grey-bg ref-detail-row">
-            <div class="ref-detail-row-key">${ref.itemType === 'presentation'? 'Presenter' : 'Author'}${ref.creators.length > 1? 's' : ''}</div>
-            <div class="ref-detail-row-value">${ref.creators && ref.creators.map((c, i) => (c.firstName + ' ' + c.lastName)).join(', ')}</div>
+            <div class="ref-detail-row-key">${ref.itemType === 'presentation'? 'Presenter' : 'Author'}${ref.creators.filter(c => c.creatorType && c.creatorType === 'author').length > 1? 's' : ''}</div>
+            <div class="ref-detail-row-value">${ref.creators.filter(c => !c.creatorType || c.creatorType === 'author').map((c, i) => (c.firstName + ' ' + c.lastName)).join(', ')}</div>
+        </div>` : ''}
+        
+        ${ref.creators && ref.creators.find(c => c.creatorType && c.creatorType === 'editor') ? `<div class="flex lt-grey-bg ref-detail-row">
+            <div class="ref-detail-row-key">Editor${ref.creators.filter(c => c.creatorType && c.creatorType === 'editor').length > 1? 's' : ''}</div>
+            <div class="ref-detail-row-value">${ref.creators.filter(c => !c.creatorType || c.creatorType === 'editor').map((c, i) => (c.firstName + ' ' + c.lastName)).join(', ')}</div>
         </div>` : ''}
 
         ${ref.presentationType ? `<div class="flex lt-grey-bg ref-detail-row">
