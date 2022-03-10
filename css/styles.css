@@ -146,8 +146,14 @@ button:hover {
 .black-bg {
   background-color: #000;
 }
+.white-bg {
+  background-color: #fff;
+}
 .center {
   text-align: center;
+}
+.left-align {
+  text-align: left !important;
 }
 .float-left {
   float: left;
@@ -535,6 +541,9 @@ pre code {
 }
 .section-content.no-margin p:last-of-type {
   margin-bottom: 0;
+}
+.font-big p{
+  font-size: 15px;
 }
 .hero .section-content {
   background-color: initial;

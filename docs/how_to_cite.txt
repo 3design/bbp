@@ -1,0 +1,5 @@
+How to Cite
+
+When referring to the BigBrain Project or using the data, please cite the original Science 2013 publication:
+
+Amunts K, Lepage C, Borgeat L, Mohlberg H, Dickscheid T, Rousseau M-É, Bludau S, Bazin PL, Lewis LB, Oros-Peusquens AM, Shah NJ, Lippert T, Zilles K, Evans AC. BigBrain: An ultrahigh-resolution 3D human brain model. Science. 2013; 340(6139):1472-1475. doi: 10.1126/science.1235381. PMID: 23788795.
