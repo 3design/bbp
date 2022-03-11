@@ -117,6 +117,16 @@
         <img src="images/featured/siibra-2.png">
         <p>Finding and retrieving neurotransmitter receptor measurements for the primary visual cortex using siibra-python</p>
       </div>
+      <div class="clear-all"></div>
+      <pre>
+        <code>
+import siibra
+atlas = siibra.atlases['human']
+v1 = atlas.get_region('v1',parcellation="julich 2.9")
+r, = siibra.get_features(v1,"receptor")
+fig = r.plot(r.matched_region.name)
+        </code>
+      </pre>
     </div>
   </section>
   <div class="clear-all"></div>
