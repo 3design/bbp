@@ -28,11 +28,12 @@
 <meta charset="utf-8">
 <title>the BigBrain</title>
 <meta name="viewport" content="width=device-width">
-<meta name="description" content="This is the contact page of the website of the BigBrain Project.">
+<meta name="description" content="This is the Prss page of the website of the BigBrain Project.">
 <meta name="keywords" content="Neuro, Brain, Research, Big Data, Science, Medicine">
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="js/drop-down.js"></script>
 <script src="js/jquery.matchHeight.js" type="text/javascript"></script>
+<script src="js/press.js" type="text/javascript"></script>
 
 </head>
 <body>
@@ -65,9 +66,9 @@
           <ul class="nav-dropdown">
             <li><a href="about.html">About Us</a></li>
             <li><a href="about.html#FAQ">FAQ</a></li>
-            <li><a href="press.html">Press</a></li>
+            <li><a href="press.html" class="active">Press</a></li>
             <li><a href="references.html">References</a></li>
-            <li><a href="contact.html" class="active">Contact</a></li>
+            <li><a href="contact.html">Contact</a></li>
           </ul>
         </li>
         <li class="nav-item"><a href="maps-and-models.html">Maps & Models</a></li>
@@ -86,25 +87,45 @@
   </nav>
 
 
-  <!-- contact section -->
+  <!-- Press section -->
   <section class="extra-pad">
-    <div class="section-content end">
-      <!-- <h1 class="full-width text-center">Contact Us</h1> -->
-      <!-- <h2 class="full-width text-center"></h2> -->
-      <p class="center">You can contact us directly on our <strong><a href="https://bigbrain-forum.loris.ca/">COMMUNITY FORUM</a></strong>. Additionally, we an be reached at <a href="mailto:info@bigbrainproject.org">info@bigbrainproject.org</a>. Otherwise, please use this form:</p>
-      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfUwf3Tl4kYUO_CoIBUJeL2fHC2eDhhlYJkOZcgLST2Apu-Vw/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0" class="contact-form">Loading…</iframe><br><br>
-      <!-- <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfJNd0LzroWoKS76S3Ss6nqbNUrbpqcrJ7AkZYF9WP9OkDcsw/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0" class="contact-form">Loading…</iframe> -->
-      <!-- <p class="center">For information please email us at <a href="mailto:info@bigbrainproject.org">info@bigbrainproject.org</a></p> -->
+    <div class="section-content flex end">
+      <h1 class="full-width text-center">BigBrain press</h1>
+      <h2 class="full-width text-center">Blog posts, newspaper articles, web pages, presentations, podcasts, etc. involving the BigBrain</h2>
+
+
+      <div class="full-width " id="press-container">
+
+        <div class="flex flex-space-between full-width mb-2">
+          <div class="flex">
+            <input placeholder="Search..." type="search" id="press-search" name="search">
+            <button id="search-button" onclick="search()">Search</button>
+          </div>
+          <div>
+            <label for="sort-press">Sort by:</label>
+
+            <select name="sort-press" id="sort-press" onchange="sortChanged()">
+              <option value="dateDesc">Date desc</option>
+              <option value="dateAsc">Date asc</option>
+              <option value="itemTypeDesc">Type desc</option>
+              <option value="itemTypeAsc">Type asc</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex-center mt-2" id="loading-panel">
+        </div>
+
+        <div id="press-list"></div>
+
+      </div>
     </div>
   </section>
+
   <div class="clear-all"></div>
 
   <!-- footer -->
-  <footer>  
-    <blockquote class="quote-holder">
-      <img class="quote-image" src="images/icon-aquisition.png">
-      <p class="quote-text">You can also contact us on <a href="https://bigbrain-forum.loris.ca">Discourse</a></p>
-    </blockquote>
+  <footer>
     <div class="section-content flex">
       <a href="https://www.fz-juelich.de/">
         <img src="images/logo-julich.jpg">
@@ -120,33 +141,4 @@
   <div class="brand-border-3"></div>
 </div>
 
-<!-- <script>
-    $(document).ready(function() {
-        $('#showmenu').click(function() {
-                $('.nav-list').toggleClass("hide");
-        });
-    });
-</script> -->
-
-<script>
-  $(function(){
-    $(".accordian h3").click(function(e){
-    $(".accordian ul p.answer").slideUp();
-      if ($(this).next().is(":hidden")){
-      $(this).next().slideDown();
-      }
-    });
-  });
-</script>
-
-<script>
-  $(function(){
-    $("#showmenu").click(function(e){
-    $("#menu").slideUp();
-      if ($(this).next().is(":hidden")){
-      $(this).next().slideDown();
-      }
-    });
-  });
-</script>
 </body></html>
