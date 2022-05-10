@@ -1,5 +1,5 @@
-const zoteroId = '4537513'
-const collection = 'VMICJHPV'
+const zoteroId = '4306971'
+const collection = '4IHM9F3X'
 let receivedData = []
 let sortBy = 'dateDesc'
 let searchString = ''
