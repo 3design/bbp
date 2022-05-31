@@ -2217,3 +2217,6 @@ a.anchor {
   transform: scaleX(1);
   transform-origin: bottom left;
 }
+.pad-sides {
+  padding: 10px;
+}
