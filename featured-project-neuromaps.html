@@ -1,0 +1,170 @@
+<!doctype html>
+<html>
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-145481065-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-145481065-1');
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+<link rel="manifest" href="favicon/site.webmanifest">
+<link rel="mask-icon" href="favicon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<meta name="author" content="Derek Lo @ 3design-dlo.com">
+<!-- general -->
+<link rel="stylesheet" type="text/css" href="css/styles.css" />
+<link rel="stylesheet" type="text/css" href="css/timeline.css" />
+<link rel="stylesheet" type="text/css" href="css/nav-styles.css" />
+<link rel="stylesheet" type="text/css" href="fonts/fonts.css" />
+<link href="css/lightbox.css" rel="stylesheet" />
+<meta charset="utf-8">
+<title>the BigBrain</title>
+<meta name="viewport" content="width=device-width">
+<meta name="description" content="This is the reference page of the website of the BigBrain Project.">
+<meta name="keywords" content="Neuro, Brain, Research, Big Data, Science, Medicine">
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="js/drop-down.js"></script>
+<script src="js/jquery.matchHeight.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="main-wrapper">
+  <div class="social-media">
+    <a href="https://twitter.com/BigBrainProject" class="tooltip">
+      <i class="fab fa-twitter-square"></i>
+      <span class="tooltiptext">Twitter</span>
+    </a>
+    <a href="mailto:info@bigbrainproject.org" class="tooltip">
+      <i class="fas fa-envelope-square"></i>
+      <span class="tooltiptext">Email</span>
+    </a>
+    <a href="#main-wrapper" class="tooltip">
+      <i class="fas fa-arrow-up"></i>
+      <span class="tooltiptext">Top</span>
+    </a>
+  </div>
+  <!-- navigation -->
+  <nav class="site-nav">
+    <div class="brand-border-1"></div>
+    <div class="brand-border-2"></div>
+    <div class="brand-border-3"></div>
+    <div class="nav-container">
+      <div class="branding"><a href="index.html">BigBrain Project</a></div>
+      <div id="showmenu">Menu</div>
+      <ul id="menu" class="nav-list hide">
+        <li class="nav-item"><a href="hiball.html"><strong>HIBALL</strong></a></li>
+        <li class="nav-item"><a href="#!">About</a>
+          <ul class="nav-dropdown">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="about.html#FAQ">FAQ</a></li>
+            <li><a href="press.html">Press</a></li>
+            <li><a href="references.html">References</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a href="maps-and-models.html">Maps & Models</a></li>
+        <li class="nav-item"><a href="tools-and-services.html">Tools & Services</a></li>
+        <li class="nav-item"><a href="#!" class="active">Community</a>
+          <ul class="nav-dropdown">
+            <li><a href="community.html">Our Community</a></li>
+            <li><a href="news.html">News & Events</a></li>
+            <li><a href="featured.html" class="active">Featured</a></li>
+            <li><a href="https://forum.bigbrainproject.org/">Forum</a></li>
+            <li><a href="careers.html">Careers</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- references section -->
+  <section class="extra-pad lt-grey-bg">
+    <div class="section-content end white-bg font-big">
+      <h1 class="full-width text-center">Featured Project</h1>
+      <h2 class="full-width text-center">Neuromaps – structural and functional interpretation of brain maps</h2>
+      <div class="col-2 internal-padding">
+      <p><a href="https://netneurolab.github.io/neuromaps/">Neuromaps</a> is an open-source Python toolbox for accessing, transforming, and analyzing structural and functional brain annotations. Neuromaps is well situated for contextualizing BigBrain data, such as cytoarchitectonic layer intensities, to the broader structural and functional architecture of the brain. Additionally, neuromaps can be used alongside BigBrain data to better inform computational models of the brain, facilitating cross-modality multi-scale research.</p>
+      <h3>Library</h3>
+      <p>The current instance of neuromaps hosts over 40 volumetric and surface-based brain annotations from a range of imaging modalities - including maps of gene expression, neurotransmitter receptors, metabolism, neurophysiological oscillations, developmental and evolutionary expansion, functional hierarchy, individual functional variability, and cognitive specialization - and will continue to expand through its <a href="https://netneurolab.github.io/neuromaps/contributing.html">integrated contribution pipeline</a>.</p>
+      </div>
+      <div class="col-2 internal-padding">
+      <h3>Transformations</h3>
+      <p>A common challenge when relating novel neuroimaging data to the broader literature is finding a common coordinate space or parcellation in which to conduct the analyses. The neuromaps toolbox provides <a href="https://netneurolab.github.io/neuromaps/user_guide/transformations.html">robust transformation</a> functionality between four standard coordinate systems: MNI-152, fsaverage, fsLR, and CIVET. Bonus: neuromaps can also <a href="https://netneurolab.github.io/neuromaps/user_guide/transformations.html#parcellations">parcellate!</a></p>
+      <h3>Spatial nulls</h3>
+      <p>The primary goal for transforming brain maps to a common coordinate system is to statistically compare their spatial topographies. The neuromaps software package implements nine <a href="https://netneurolab.github.io/neuromaps/user_guide/nulls.html">spatial null</a> model frameworks that allow for statistical comparison between brain maps while accounting for spatial autocorrelation. These null models can be used on surface, volumetric, or parcellated data.</p>
+      <p>
+        <h3>Get started</h3>
+        <ul>
+          <li>Read our <a href="https://www.biorxiv.org/content/10.1101/2022.01.06.475081v1">preprint</a> (or <a href="https://twitter.com/misicbata/status/1479459222672846852">tweeprint</a>)</li>
+          <li>Access our <a href="https://github.com/netneurolab/neuromaps">code</a> on Github</li>
+          <li>See our <a href="https://netneurolab.github.io/neuromaps/index.html">documentation</a></li>
+        </ul>
+      </p>
+      </div>
+      <div class="clear-all">
+      <div class="">
+        <img src="images/featured/neuromaps.png">
+      </div>
+      <div class="clear-all"></div>
+    </div>
+  </section>
+  <div class="clear-all"></div>
+
+  <!-- footer -->
+  <footer>  
+    <blockquote class="quote-holder">
+      <img class="quote-image" src="images/icon-aquisition.png">
+      <p class="quote-text">Share your projects on <a href="https://forum.bigbrainproject.org/">Discourse</a></p>
+    </blockquote>
+    <div class="section-content flex">
+      <a href="https://www.fz-juelich.de/">
+        <img src="images/logo-julich.jpg">
+      </a>
+      <a href="https://mcgill.ca/">
+        <img src="images/logo-mcgill.png">
+      </a>
+    </div>
+    <p class="center" style="color: #fff;">For information please email us at <a href="mailto:info@bigbrainproject.org">info@bigbrainproject.org</a><br>All images on this website are licensed <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA”</a></p>
+  </footer>
+  <div class="brand-border-1"></div>
+  <div class="brand-border-2"></div>
+  <div class="brand-border-3"></div>
+</div>
+
+<!-- <script>
+    $(document).ready(function() {
+        $('#showmenu').click(function() {
+                $('.nav-list').toggleClass("hide");
+        });
+    });
+</script> -->
+
+<script>
+  $(function(){
+    $(".accordian h3").click(function(e){
+    $(".accordian ul p.answer").slideUp();
+      if ($(this).next().is(":hidden")){
+      $(this).next().slideDown();
+      }
+    });
+  });
+</script>
+
+<script>
+  $(function(){
+    $("#showmenu").click(function(e){
+    $("#menu").slideUp();
+      if ($(this).next().is(":hidden")){
+      $(this).next().slideDown();
+      }
+    });
+  });
+</script>
+</body></html>
