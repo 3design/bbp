@@ -1,4 +1,5 @@
 const zoteroId = '4306971'
+const collection = 'XT9EWQJJ'
 let receivedData = []
 let sortBy = 'dateDesc'
 let searchString = ''
@@ -52,7 +53,7 @@ const fetchReferences = ({sort = null, direction= null, queryString = null} = {}
     if(listEl) listEl.remove()
 
 
-    fetch(`https://api.zotero.org/groups/${zoteroId}/items/top?format=json&limit=2000
+    fetch(`https://api.zotero.org/groups/${zoteroId}/collections/${collection}/items/top?format=json&limit=2000
                     &direction=${direction}&sort=${sort}` + (queryString? `&qmode=everything&q=${queryString}` : ''))
         .then(res => res.json())
         .then(data => {
