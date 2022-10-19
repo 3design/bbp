@@ -45,9 +45,12 @@ const fetchReferences = ({sort = null, direction= null, queryString = null} = {}
     }
 
     setTimeout(() => {
-        if (!document.getElementById('refLoader')) document.getElementById('loading-panel').insertAdjacentHTML('afterbegin', `<div id="refLoader" class="ref-loader"></div>`)
+        if (!document.getElementById('refLoader')) {
+           const loadingPanel = document.getElementById('loading-panel')
+           loadingPanel.insertAdjacentHTML('afterbegin', `<div id="refLoader" class="ref-loader"></div>`)
+        } 
         enableLoading()
-    })
+    }, 100)
 
     const listEl = document.getElementById('ref-list-el')
     if(listEl) listEl.remove()
