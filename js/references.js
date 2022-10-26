@@ -1,4 +1,5 @@
 const zoteroId = '4306971'
+const collection = 'XT9EWQJJ'
 let receivedData = []
 let sortBy = 'dateDesc'
 let searchString = ''
@@ -44,15 +45,18 @@ const fetchReferences = ({sort = null, direction= null, queryString = null} = {}
     }
 
     setTimeout(() => {
-        if (!document.getElementById('refLoader')) document.getElementById('loading-panel').insertAdjacentHTML('afterbegin', `<div id="refLoader" class="ref-loader"></div>`)
+        if (!document.getElementById('refLoader')) {
+           const loadingPanel = document.getElementById('loading-panel')
+           loadingPanel.insertAdjacentHTML('afterbegin', `<div id="refLoader" class="ref-loader"></div>`)
+        } 
         enableLoading()
-    })
+    }, 100)
 
     const listEl = document.getElementById('ref-list-el')
     if(listEl) listEl.remove()
 
 
-    fetch(`https://api.zotero.org/groups/${zoteroId}/items/top?format=json&limit=2000
+    fetch(`https://api.zotero.org/groups/${zoteroId}/collections/${collection}/items/top?format=json&limit=2000
                     &direction=${direction}&sort=${sort}` + (queryString? `&qmode=everything&q=${queryString}` : ''))
         .then(res => res.json())
         .then(data => {
