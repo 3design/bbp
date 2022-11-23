@@ -548,6 +548,7 @@ pre code {
 }
 .font-big p{
   font-size: 15px;
+  line-height: 1.25em;
 }
 .hero .section-content {
   background-color: initial;
