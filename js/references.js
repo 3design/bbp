@@ -62,9 +62,11 @@ const fetchReferences = ({sort = null, direction= null, queryString = null} = {}
         .then(data => {
 
             const getCreatorName = (creators) => {
-
+                if (creators.length > 5) {
+                    creators = [...creators.slice(0, 3), creators[creators.length - 1], {name: ' et al.'}] 
+                }
                 return creators
-                    .filter(c => !c.creatorType || c.creatorType === 'author')
+                    .filter(c => !c.creatorType || c.creatorType === 'author'  || c.creatorType === 'presenter')
                     .map(c => c.name? c.name :
                         ` ${c.lastName && c.lastName} ${c.firstName && c.firstName
                             .replace(/\./g,'').replace(/-/g, ' ').split(' ').map(n => n[0].toUpperCase()).join(' ')}`)
@@ -85,11 +87,11 @@ const fetchReferences = ({sort = null, direction= null, queryString = null} = {}
                     className="reference julich-bar"
                     class="lt-grey-bg ref-item">
                     <span style="font-size: 20px">${d.data.itemType === 'journalArticle'? '📄' : d.data.itemType === 'thesis'? '🎓' : d.data.itemType === 'conferencePaper'? '📝' : d.data.itemType === 'report'? '📈' : '🖥'}</span>
-                    ${getCreatorName(d.data.creators)},
-                    ${d.data.date ? `(${d.data.date})` : ''}
+                    ${getCreatorName(d.data.creators)}
+                    ${d.data.date ? `(${(new Date(d.data.date)).getFullYear()})` : ''}
                     <span class="ref-title">${d.data.title}.</span>
-
                     ${d.data.publicationTitle? `${d.data.publicationTitle},` : d.data.proceedingsTitle? `${d.data.proceedingsTitle},` : ''}
+                    ${d.data.university && d.data.university}
                     ${d.data.volume? `${d.data.volume} ${d.data.issue? `(${d.data.issue})` : ''} : ` : ''}
                     ${d.data.pages? `${d.data.pages},` : ''}
                     ${d.data.DOI? `<a href="https://doi.org/${d.data.DOI}" target="_blank">${d.data.DOI}</a>` : ''}
@@ -161,8 +163,8 @@ const openNav = (i = 0) => {
         </div>` : ''}
 
         ${ref.creators ? `<div class="flex lt-grey-bg ref-detail-row">
-            <div class="ref-detail-row-key">${ref.itemType === 'presentation'? 'Presenter' : 'Author'}${ref.creators.filter(c => c.creatorType && c.creatorType === 'author').length > 1? 's' : ''}</div>
-            <div class="ref-detail-row-value">${ref.creators.filter(c => !c.creatorType || c.creatorType === 'author').map((c, i) => (c.firstName + ' ' + c.lastName)).join(', ')}</div>
+            <div class="ref-detail-row-key">${ref.itemType === 'presentation'? 'Presenter' : 'Author'}${ref.creators.filter(c => c.creatorType && ['author', 'presenter'].includes(c.creatorType)).length > 1? 's' : ''}</div>
+            <div class="ref-detail-row-value">${ref.creators.filter(c => !c.creatorType || ['author', 'presenter'].includes(c.creatorType)).map((c, i) => (c.firstName + ' ' + c.lastName)).join(', ')}</div>
         </div>` : ''}
         
         ${ref.creators && ref.creators.find(c => c.creatorType && c.creatorType === 'editor') ? `<div class="flex lt-grey-bg ref-detail-row">
