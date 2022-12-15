@@ -538,7 +538,7 @@ pre code {
   margin: 0px auto;
   padding: 80px 20px;
   overflow: auto;
-  backgr?ound: #fff;
+/*  background: #fff;*/
 }
 .section-content p:last-of-type {
   margin-bottom: 40px;
@@ -1640,7 +1640,8 @@ height: 100%;
     width: 20%
   }
   .sab-size .mosaic {
-    width: 25%;
+/*    width: 25%;*/
+    width: 20%
   }
 }
 @media screen and (min-width: 1200px ) {
@@ -1648,7 +1649,8 @@ height: 100%;
     width: 14.285%;
   }
   .sab-size .mosaic {
-    width: 25%;
+/*    width: 25%;*/
+    width: 14.285%;
   }
 }
 /* anchors */
