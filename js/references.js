@@ -86,12 +86,12 @@ const fetchReferences = ({sort = null, direction= null, queryString = null} = {}
                 `<p onclick="openNav(${i})"
                     className="reference julich-bar"
                     class="lt-grey-bg ref-item">
-                    <span style="font-size: 20px">${d.data.itemType === 'journalArticle'? '📄' : d.data.itemType === 'thesis'? '🎓' : d.data.itemType === 'conferencePaper'? '📝' : d.data.itemType === 'report'? '📈' : '🖥'}</span>
+                    <span style="font-size: 20px">${d.data.itemType === 'journalArticle'? '📄' : d.data.itemType === 'thesis'? '🎓' : d.data.itemType === 'conferencePaper'? '📝' : d.data.itemType === 'report'? '📈' : d.data.itemType === 'preprint'? '📃' : '🖥'}</span>
                     ${getCreatorName(d.data.creators)}
                     ${d.data.date ? `(${(new Date(d.data.date)).getFullYear()})` : ''}
                     <span class="ref-title">${d.data.title}.</span>
                     ${d.data.publicationTitle? `${d.data.publicationTitle},` : d.data.proceedingsTitle? `${d.data.proceedingsTitle},` : ''}
-                    ${d.data.university && d.data.university}
+                    ${d.data.university? d.data.university : ''}
                     ${d.data.volume? `${d.data.volume} ${d.data.issue? `(${d.data.issue})` : ''} : ` : ''}
                     ${d.data.pages? `${d.data.pages},` : ''}
                     ${d.data.DOI? `<a href="https://doi.org/${d.data.DOI}" target="_blank">${d.data.DOI}</a>` : ''}
