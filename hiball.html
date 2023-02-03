@@ -1,6 +1,15 @@
 <!doctype html>
 <html>
 <head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZSP3HV4M1C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ZSP3HV4M1C');
+</script>
   <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-145481065-1"></script>
 <script>
@@ -62,7 +71,13 @@
       <div class="branding"><a href="index.html">BigBrain Project</a></div>
       <div id="showmenu">Menu</div>
       <ul id="menu" class="nav-list hide">
-        <li class="nav-item"><a href="hiball.html" class="active"><strong>HIBALL</strong></a></li>
+        <li class="nav-item"><a href="#!" class="active"><strong>HIBALL</strong></a>
+          <ul class="nav-dropdown">
+            <li><a href="hiball.html" class="active">About Hiball</a></li>
+            <li><a href="board.html">Board</a></li>
+            <li><a href="partners.html">Partners</a></li>
+          </ul>
+        </li>
         <li class="nav-item"><a href="#!">About</a>
           <ul class="nav-dropdown">
             <li><a href="about.html">About Us</a></li>
