@@ -2069,6 +2069,10 @@ a.anchor {
 .mt-2 {
   margin-bottom: 1.5rem;
 }
+.board-info {
+  max-width: 800px;
+  margin: 0 auto;
+}
 
 /*References new*/
 .ref-item {
