@@ -42,7 +42,6 @@
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="js/drop-down.js"></script>
 <script src="js/jquery.matchHeight.js" type="text/javascript"></script>
-<script src="js/references.js" type="text/javascript"></script>
 </head>
 <body>
 <div id="main-wrapper">
@@ -111,21 +110,24 @@
       <div class="flex flex-space-between full-width mb-2">
         <div class="flex">
           <input placeholder="Search..." type="search" id="ref-search" name="search">
-          <button id="search-button" onclick="search()">Search</button>
+          <button id="search-button" onclick="onFilterCriteriaChange()">Search</button>
         </div>
         <div>
           <label for="sort-ref">Sort by:</label>
 
-          <select name="sort-ref" id="sort-ref" onchange="sortChanged()">
-            <option value="dateDesc">Date desc</option>
-            <option value="dateAsc">Date asc</option>
+          <select name="sort-ref" id="sort-ref" onchange="onFilterCriteriaChange()">
+            <option data-sort="date" data-direction="desc" value="dateDesc">Date desc</option>
+            <option data-sort="date" data-direction="asc" value="dateAsc">Date asc</option>
 <!--            <option value="titleDesc">Name desc</option>-->
 <!--            <option value="titleAsc">Name asc</option>-->
-            <option value="itemTypeDesc">Type desc</option>
-            <option value="itemTypeAsc">Type asc</option>
+            <option data-sort="itemType" data-direction="desc" value="itemTypeDesc">Type desc</option>
+            <option data-sort="itemType" data-direction="asc" value="itemTypeAsc">Type asc</option>
           </select>
         </div>
       </div>
+
+      <!-- container for filter to be populated -->
+      <div id="typeFilters" class="flex full-width mb-2"></div>
 
       <div class="full-width " id="reference-list">
         <div class="flex-center mt-2" id="loading-panel">
@@ -190,13 +192,7 @@
   <div class="brand-border-3"></div>
 </div>
 
-<!-- <script>
-    $(document).ready(function() {
-        $('#showmenu').click(function() {
-                $('.nav-list').toggleClass("hide");
-        });
-    });
-</script> -->
+<script src="js/references.js" type="text/javascript"></script>
 
 <script>
   $(function(){
