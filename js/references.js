@@ -14,13 +14,27 @@ const ZETORO_ID = '4306971'
 const ZETORO_COLLECTION = 'XT9EWQJJ'
 const ZETORO_LIMIT = 2000
 
+/**
+ * 
+ * @param {string} input
+ * @returns {string} 
+ */
+function deCamelCase(input){
+    return input.replace(/[A-Z][a-z]+/g, s => ` ${s}`)
+        .replace(/[A-Z][A-Z]+/, s => ` ${s}`)
+        .split(" ")
+        .map(word => word.length > 0
+            ? `${word[0].toUpperCase()}${word.slice(1)}`
+            : ''
+        ).join(" ")
+}
+
 function referencesLoadingPrescript(){
 
     closeNav()
     fetchedItems = []
 
     loading = true
-    document.getElementById('sort-ref').disabled = true
     document.getElementById('ref-search').disabled = true
     document.getElementById('search-button').disabled = true
     for (const el of Array.from(document.getElementsByClassName('check-box-types'))) {
@@ -32,13 +46,14 @@ function referencesLoadingPrescript(){
         loadingPanel.insertAdjacentHTML('afterbegin', `<div id="refLoader" class="ref-loader"></div>`)
     }
     
-    const listEl = document.getElementById('ref-list-el')
-    if(listEl) listEl.remove()
+    const listEls = document.getElementsByClassName("ref-list-el")
+    for (const el of Array.from(listEls)) {
+        el.remove()
+    }
 }
 
 function referenceLoadingPostscript(){
     loading = true
-    document.getElementById('sort-ref').disabled = false
     document.getElementById('ref-search').disabled = false
     document.getElementById('search-button').disabled = false
     for (const el of Array.from(document.getElementsByClassName('check-box-types'))) {
@@ -48,14 +63,12 @@ function referenceLoadingPostscript(){
 
 const enableLoading = () => {
     loading = true
-    document.getElementById('sort-ref').disabled = true
     document.getElementById('ref-search').disabled = true
     document.getElementById('search-button').disabled = true
 }
 
 const disableLoading = () => {
     loading = true
-    document.getElementById('sort-ref').disabled = false
     document.getElementById('ref-search').disabled = false
     document.getElementById('search-button').disabled = false
 }
@@ -139,6 +152,12 @@ const disableLoading = () => {
  */
 
 /**
+ * @typedef {Object} GroupedZetoroResp
+ * @property {string} name
+ * @property {ZetoroResp[]} items 
+ */
+
+/**
  * 
  * @param {('date'|'itemType')} sort 
  * @param {('asc'|'desc')} direction 
@@ -169,28 +188,51 @@ async function _fetchReferences(sort="date", direction="desc", queryString, item
 
 /**
  * 
- * @param {string} typeName 
+ * @param {ZetoroResp[]} items 
+ * @returns {GroupedZetoroResp[]}
  */
-function appendTypeFilterItem(typeName){
-    const container = document.createElement("div")
-    container.id = `checkbox-group-${typeName}`
+function groupReferences(items) {
 
-    const input = document.createElement("input")
-    input.setAttribute('data-type-name', typeName)
-    input.type = "checkbox"
-    input.className = `check-box-types`
-    input.id = `checkbox-${typeName}`
-    input.name = `checkbox-${typeName}`
-    input.checked = true
+    // Default order can be changed, but for now, is decided based on
+    // meeting between PJ, Susanne and Xiao on 2023.07.27
 
-    const label = document.createElement("label")
-    label.textContent = typeName
-
-    container.appendChild(input)
-    container.appendChild(label)
-
-    const _ = document.getElementById("typeFilters")
-    _.appendChild(container)
+    /** @type {GroupedZetoroResp[]} */
+    const _ = [
+        {
+            name: "journalArticle",
+            items: []
+        },
+        {
+            name: "conferencePaper",
+            items: []
+        },
+        {
+            name: "preprint",
+            items: []
+        },
+        {
+            name: "thesis",
+            items: []
+        },
+        {
+            name: "presentation",
+            items: []
+        },
+    ]
+    for (const item of items) {
+        const found = _.find(obj => obj.name === item.data.itemType)
+        if (found) {
+            found.items.push(item)
+        } else {
+            /** @type {GroupedZetoroResp} */
+            const newItem = {
+                name: item.data.itemType,
+                items: [ item ]
+            }
+            _.push(newItem)
+        }
+    }
+    return _
 }
 
 
@@ -216,26 +258,122 @@ function formatCreatorsName(creators){
  * @param {ZetoroResp[]} resp 
  */
 function populateReferenceList(resp){
-    // TODO inserting raw HTML is prone to XSS attack
-    // either use sanitizer in the future, or use DOM API to create nodes manually
-    const html = `<div id="ref-list-el">${resp.map((d, i) =>
-        `<p onclick="openSideNav('${d.key}')"
-            className="reference julich-bar"
-            class="lt-grey-bg ref-item">
-            <span style="font-size: 20px">${d.data.itemType === 'journalArticle'? '📄' : d.data.itemType === 'thesis'? '🎓' : d.data.itemType === 'conferencePaper'? '📝' : d.data.itemType === 'report'? '📈' : d.data.itemType === 'preprint'? '📃' : '🖥'}</span>
-            ${formatCreatorsName(d.data.creators)}
-            ${d.data.date ? `(${(new Date(d.data.date)).getFullYear()})` : ''}
-            <span class="ref-title">${d.data.title}.</span>
-            ${d.data.publicationTitle? `${d.data.publicationTitle},` : d.data.proceedingsTitle? `${d.data.proceedingsTitle},` : ''}
-            ${d.data.university? d.data.university : ''}
-            ${d.data.volume? `${d.data.volume} ${d.data.issue? `(${d.data.issue})` : ''} : ` : ''}
-            ${d.data.pages? `${d.data.pages},` : ''}
-            ${d.data.DOI? `<a href="https://doi.org/${d.data.DOI}" target="_blank">${d.data.DOI}</a>` : ''}
-        </p><br>`
-    ).join('')}</div>`
+    
+    const groupedRef = groupReferences(resp)
+    const root = generateGroupedReferenceListRootElement(groupedRef)
+    root.classList.add("ref-list-el")
+    root.addEventListener("click", ev => {
+        const key = ev.target?.dataset?.key
+        if (key) {
+            openSideNav(ev.target.dataset.key)
+        }
+    })
 
     document.getElementById('refLoader').remove()
-    document.getElementById('reference-list').insertAdjacentHTML('afterbegin', html)
+    document.getElementById('reference-list').appendChild(root)
+}
+
+/**
+ * 
+ * @param {GroupedZetoroResp} groupedRef
+ * @returns {HTMDivLElement} 
+ */
+function convertGroupedRefToNode(groupedRef) {
+
+    // Create master container
+    const root = document.createElement("div")
+    root.classList.add("ref-section")
+
+    // create header-anchor
+    const headerAnchor = document.createElement("a")
+    headerAnchor.id = `ref-section-${groupedRef.name}`
+
+    // create header
+    const header = document.createElement("h3")
+    header.classList.add("ref-section-header")
+    header.textContent = deCamelCase(groupedRef.name)
+
+    // create content container
+    const refsContainer = document.createElement("div")
+
+    // create item containers
+    const itemContainers = groupedRef.items.map((item, index, array) => {
+        const _ = document.createElement("div")
+        _.classList.add("reference", "julich-bar", "lt-grey-bg", "ref-item")
+        _.dataset.key = item.key
+        _.dataset.index = index
+
+        // icon span
+        const iconSpan = document.createElement("span")
+        iconSpan.style.fontSize = "20px"
+        iconSpan.textContent = item.data.itemType === 'journalArticle'? '📄' : item.data.itemType === 'thesis'? '🎓' : item.data.itemType === 'conferencePaper'? '📝' : item.data.itemType === 'report'? '📈' : item.data.itemType === 'preprint'? '📃' : '🖥'
+
+        // author & year
+        const authorString = formatCreatorsName(item.data.creators).join(", ")
+        const yearString = item.data.date ? new Date( item.data.date ).getFullYear() : ''
+        const authorYearNode = document.createTextNode(` ${authorString} ${yearString} `)
+
+        // title span
+        const titleSpan = document.createElement("span")
+        titleSpan.classList.add("ref-title")
+        titleSpan.textContent = `${item.data.title}.`
+
+        // rest textnode
+        const publicationTitle = item.data.publicationTitle
+            ? `${item.data.publicationTitle},`
+            : item.data.proceedingsTitle
+                ? `${item.data.proceedingsTitle},`
+                : '' 
+        const university = item.data.university || ''
+        const volume = item.data.volume || ''
+        const issue = item.data.issue ? `(${item.data.issue})`: ``
+        const pages = item.data.pages ? `${item.data.pages},` : ''
+        const restTextNode = document.createTextNode(` ${publicationTitle} ${university} ${volume} ${issue} ${pages} `)
+
+        // doi node
+        let doiNode = null
+        if (item.data.DOI){
+            doiNode = document.createElement("a")
+            doiNode.href = `https://doi.org/${item.data.DOI}`
+            doiNode.target = "_blank"
+            doiNode.textContent = item.data.DOI
+        }
+
+        // Put everything together
+        _.appendChild(iconSpan)
+        _.appendChild(authorYearNode)
+        _.appendChild(titleSpan)
+        _.appendChild(restTextNode)
+        if (doiNode) {
+            _.appendChild(doiNode)
+        }
+        
+        return _
+    })
+
+    // Put everything together
+    root.appendChild(headerAnchor)
+    root.appendChild(header)
+    root.appendChild(refsContainer)
+    for (const item of itemContainers) {
+        refsContainer.appendChild(item)
+    }
+
+    return root
+}
+
+/**
+ * 
+ * @param {GroupedZetoroResp[]} groupReferences 
+ * @returns {HTMLDivElement}
+ */
+function generateGroupedReferenceListRootElement(groupReferences) {
+    const _ = document.createElement("div")
+    const groupedNodes = groupReferences.map( convertGroupedRefToNode )
+    for (const el of groupedNodes) {
+        _.appendChild(el)
+    }
+    return _
 }
 
 /**
@@ -464,12 +602,6 @@ function openSideNav(key){
     referencesLoadingPrescript()
 
     fetchedItems = await _fetchReferences()
-    itemTypes = Array.from(new Set(fetchedItems.map(r => r.data.itemType)))
-    for (const item of itemTypes) {
-        appendTypeFilterItem(item)
-    }
-    document.getElementById("typeFilters").addEventListener("change", onFilterCriteriaChange)
-
     populateReferenceList(fetchedItems)
     
     const searchInput = document.getElementById("ref-search")
@@ -487,12 +619,8 @@ async function onFilterCriteriaChange(){
 
     referencesLoadingPrescript()
 
-    /** @type {HTMLSelectElement} */
-    const sortValue = document.getElementById('sort-ref')
-    const selectedOption = sortValue.selectedOptions[0]
-
-    const direction = selectedOption.dataset.direction
-    const sort = selectedOption.dataset.sort
+    const direction = "desc"
+    const sort = "date"
 
     const searchString = document.getElementById('ref-search').value
 
@@ -505,7 +633,6 @@ async function onFilterCriteriaChange(){
         .filter(ch => ch.checked)
         .map(ch => ch.dataset.typeName)
     
-    console.log('filterByItemType', filterByItemType)
     fetchedItems = await _fetchReferences(sort, direction, searchString, filterByItemType)
     populateReferenceList(fetchedItems)
 
