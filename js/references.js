@@ -5,149 +5,388 @@ let sortBy = 'dateDesc'
 let searchString = ''
 let loading = false
 
+let itemTypes = []
+
+/** @type {ZetoroResp[]} */
+let fetchedItems = []
+
+const ZETORO_ID = '4306971'
+const ZETORO_COLLECTION = 'XT9EWQJJ'
+const ZETORO_LIMIT = 2000
+
+/**
+ * 
+ * @param {string} input
+ * @returns {string} 
+ */
+function deCamelCase(input){
+    return input.replace(/[A-Z][a-z]+/g, s => ` ${s}`)
+        .replace(/[A-Z][A-Z]+/, s => ` ${s}`)
+        .split(" ")
+        .map(word => word.length > 0
+            ? `${word[0].toUpperCase()}${word.slice(1)}`
+            : ''
+        ).join(" ")
+}
+
+function referencesLoadingPrescript(){
+
+    closeNav()
+    fetchedItems = []
+
+    loading = true
+    document.getElementById('ref-search').disabled = true
+    document.getElementById('search-button').disabled = true
+    for (const el of Array.from(document.getElementsByClassName('check-box-types'))) {
+        el.disabled = true
+    }
+    
+    if (!document.getElementById('refLoader')) {
+        const loadingPanel = document.getElementById('loading-panel')
+        loadingPanel.insertAdjacentHTML('afterbegin', `<div id="refLoader" class="ref-loader"></div>`)
+    }
+    
+    const listEls = document.getElementsByClassName("ref-list-el")
+    for (const el of Array.from(listEls)) {
+        el.remove()
+    }
+}
+
+function referenceLoadingPostscript(){
+    loading = true
+    document.getElementById('ref-search').disabled = false
+    document.getElementById('search-button').disabled = false
+    for (const el of Array.from(document.getElementsByClassName('check-box-types'))) {
+        el.disabled = false
+    }
+}
+
 const enableLoading = () => {
     loading = true
-    document.getElementById('sort-ref').disabled = true
     document.getElementById('ref-search').disabled = true
     document.getElementById('search-button').disabled = true
 }
 
 const disableLoading = () => {
     loading = true
-    document.getElementById('sort-ref').disabled = false
     document.getElementById('ref-search').disabled = false
     document.getElementById('search-button').disabled = false
 }
 
-setTimeout(() => {
-    const searchInput = document.getElementById("ref-search")
-    searchInput.addEventListener('search', evt => search())
-    searchInput.addEventListener("keyup", event => {
-        if (event.key === 'Enter') {
-            search()
+/**
+ * @typedef {Object} ZetoroCreator
+ * @property {string} creatorType
+ * @property {string} firstName
+ * @property {string} lastName
+ * @property {string} name
+ */
+
+/**
+ * @typedef {Object} ZetoroTag
+ * @property {string} tag
+ * @property {number} type
+ */
+
+/**
+ * @typedef {Object} ZetoroData
+ * @property {string} key
+ * @property {number} version
+ * @property {string} itemType
+ * @property {string} title
+ * @property {ZetoroCreator[]} creators
+ * @property {string} abstractNote
+ * @property {string} publicationTitle
+ * @property {string} volume
+ * @property {string} issue
+ * @property {string} pages
+ * @property {string} date
+ * @property {string} series
+ * @property {string} seriesTitle
+ * @property {string} seriesText
+ * @property {string} journalAbbreviation
+ * @property {string} language
+ * @property {string} DOI
+ * @property {string} ISSN
+ * @property {string} shortTitle
+ * @property {string} url
+ * @property {string} accessDate
+ * @property {string} archive
+ * @property {string} archiveLocation
+ * @property {string} libraryCatalog
+ * @property {string} callNumber
+ * @property {string} rights
+ * @property {string} extra
+ * @property {ZetoroTag[]} tags
+ * @property {string[]} collections
+ * @property {Object} relations
+ * @property {string} dateAdded
+ * @property {string} dateModified
+ */
+
+/**
+ * @typedef {Object} Links
+ * @property {string} href
+ */
+
+/**
+ * @typedef {Object} ZetoroLinks
+ * @property {Links} alternate
+ * @property {Links} self
+ */
+
+/**
+ * @typedef {Object} ZetoroLibrary
+ * @property {number} id
+ * @property {string} name
+ * @property {string} type
+ * @property {ZetoroLinks} links
+ */
+
+/**
+ * @typedef {Object} ZetoroResp
+ * @property {string} key
+ * @property {number} version
+ * @property {ZetoroData} data
+ * @property {ZetoroLibrary} library
+ * @property {ZetoroLinks} links
+ */
+
+/**
+ * @typedef {Object} GroupedZetoroResp
+ * @property {string} name
+ * @property {ZetoroResp[]} items 
+ */
+
+/**
+ * 
+ * @param {('date'|'itemType')} sort 
+ * @param {('asc'|'desc')} direction 
+ * @param {string} queryString 
+ * @param {string[]} itemType 
+ * @returns {Promise<ZetoroResp[]>}
+ */
+async function _fetchReferences(sort="date", direction="desc", queryString, itemType) {
+    const url = new URL(`https://api.zotero.org/groups/${ZETORO_ID}/collections/${ZETORO_COLLECTION}/items/top`)
+    url.searchParams.set("format", "json")
+    url.searchParams.set("limit", ZETORO_LIMIT)
+    if (direction) {
+        url.searchParams.set("direction", direction)
+    }
+    if (sort) {
+        url.searchParams.set("sort", sort)
+    }
+    if (queryString) {
+        url.searchParams.set("qmode", "everything")
+        url.searchParams.set("q", queryString)
+    }
+    if (itemType) {
+        url.searchParams.set("itemType", itemType.join(" || "))
+    }
+    const resp = await fetch (url)
+    return await resp.json()
+}
+
+/**
+ * 
+ * @param {ZetoroResp[]} items 
+ * @returns {GroupedZetoroResp[]}
+ */
+function groupReferences(items) {
+
+    // Default order can be changed, but for now, is decided based on
+    // meeting between PJ, Susanne and Xiao on 2023.07.27
+
+    /** @type {GroupedZetoroResp[]} */
+    const _ = [
+        {
+            name: "journalArticle",
+            items: []
+        },
+        {
+            name: "conferencePaper",
+            items: []
+        },
+        {
+            name: "preprint",
+            items: []
+        },
+        {
+            name: "thesis",
+            items: []
+        },
+        {
+            name: "presentation",
+            items: []
+        },
+    ]
+    for (const item of items) {
+        const found = _.find(obj => obj.name === item.data.itemType)
+        if (found) {
+            found.items.push(item)
+        } else {
+            /** @type {GroupedZetoroResp} */
+            const newItem = {
+                name: item.data.itemType,
+                items: [ item ]
+            }
+            _.push(newItem)
+        }
+    }
+    return _
+}
+
+
+/**
+ * 
+ * @param {ZetoroCreator[]} creators
+ * @returns {string[]}
+ */
+function formatCreatorsName(creators){
+    if (creators.length > 5) {
+        creators = [...creators.slice(0, 3), creators[creators.length - 1], {name: ' et al.'}] 
+    }
+    return creators
+        .filter(c => !c.creatorType || c.creatorType === 'author'  || c.creatorType === 'presenter')
+        .map(c => c.name? c.name :
+            ` ${c.lastName && c.lastName} ${c.firstName && c.firstName
+                .replace(/\./g,'').replace(/-/g, ' ').split(' ').map(n => n[0].toUpperCase()).join(' ')}`)
+}
+
+
+/**
+ * 
+ * @param {ZetoroResp[]} resp 
+ */
+function populateReferenceList(resp){
+    
+    const groupedRef = groupReferences(resp)
+    const root = generateGroupedReferenceListRootElement(groupedRef)
+    root.classList.add("ref-list-el")
+    root.addEventListener("click", ev => {
+        const key = ev.target?.dataset?.key
+        if (key) {
+            openSideNav(ev.target.dataset.key)
         }
     })
-})
 
+    document.getElementById('refLoader').remove()
+    document.getElementById('reference-list').appendChild(root)
+}
 
-const fetchReferences = ({sort = null, direction= null, queryString = null} = {}) => {
-    if (!sort && !direction) {
-        if (sortBy.includes('Desc')) {
-            sort = sortBy.replace('Desc', '')
-            direction = 'desc'
-        } else {
-            sort = sortBy.replace('Asc', '')
-            direction = 'asc'
+/**
+ * 
+ * @param {GroupedZetoroResp} groupedRef
+ * @returns {HTMDivLElement} 
+ */
+function convertGroupedRefToNode(groupedRef) {
+
+    // Create master container
+    const root = document.createElement("div")
+    root.classList.add("ref-section")
+
+    // create header-anchor
+    const headerAnchor = document.createElement("a")
+    headerAnchor.id = `ref-section-${groupedRef.name}`
+
+    // create header
+    const header = document.createElement("h3")
+    header.classList.add("ref-section-header")
+    header.textContent = deCamelCase(groupedRef.name)
+
+    // create content container
+    const refsContainer = document.createElement("div")
+
+    // create item containers
+    const itemContainers = groupedRef.items.map((item, index, array) => {
+        const _ = document.createElement("div")
+        _.classList.add("reference", "julich-bar", "lt-grey-bg", "ref-item")
+        _.dataset.key = item.key
+        _.dataset.index = index
+
+        // icon span
+        const iconSpan = document.createElement("span")
+        iconSpan.style.fontSize = "20px"
+        iconSpan.textContent = item.data.itemType === 'journalArticle'? '📄' : item.data.itemType === 'thesis'? '🎓' : item.data.itemType === 'conferencePaper'? '📝' : item.data.itemType === 'report'? '📈' : item.data.itemType === 'preprint'? '📃' : '🖥'
+
+        // author & year
+        const authorString = formatCreatorsName(item.data.creators).join(", ")
+        const yearString = item.data.date ? new Date( item.data.date ).getFullYear() : ''
+        const authorYearNode = document.createTextNode(` ${authorString} ${yearString} `)
+
+        // title span
+        const titleSpan = document.createElement("span")
+        titleSpan.classList.add("ref-title")
+        titleSpan.textContent = `${item.data.title}.`
+
+        // rest textnode
+        const publicationTitle = item.data.publicationTitle
+            ? `${item.data.publicationTitle},`
+            : item.data.proceedingsTitle
+                ? `${item.data.proceedingsTitle},`
+                : '' 
+        const university = item.data.university || ''
+        const volume = item.data.volume || ''
+        const issue = item.data.issue ? `(${item.data.issue})`: ``
+        const pages = item.data.pages ? `${item.data.pages},` : ''
+        const restTextNode = document.createTextNode(` ${publicationTitle} ${university} ${volume} ${issue} ${pages} `)
+
+        // doi node
+        let doiNode = null
+        if (item.data.DOI){
+            doiNode = document.createElement("a")
+            doiNode.href = `https://doi.org/${item.data.DOI}`
+            doiNode.target = "_blank"
+            doiNode.textContent = item.data.DOI
         }
+
+        // Put everything together
+        _.appendChild(iconSpan)
+        _.appendChild(authorYearNode)
+        _.appendChild(titleSpan)
+        _.appendChild(restTextNode)
+        if (doiNode) {
+            _.appendChild(doiNode)
+        }
+        
+        return _
+    })
+
+    // Put everything together
+    root.appendChild(headerAnchor)
+    root.appendChild(header)
+    root.appendChild(refsContainer)
+    for (const item of itemContainers) {
+        refsContainer.appendChild(item)
     }
-    if (!queryString) {
-        queryString = searchString
-    }
 
-    setTimeout(() => {
-        if (!document.getElementById('refLoader')) {
-           const loadingPanel = document.getElementById('loading-panel')
-           loadingPanel.insertAdjacentHTML('afterbegin', `<div id="refLoader" class="ref-loader"></div>`)
-        } 
-        enableLoading()
-    }, 100)
-
-    const listEl = document.getElementById('ref-list-el')
-    if(listEl) listEl.remove()
-
-
-    fetch(`https://api.zotero.org/groups/${zoteroId}/collections/${collection}/items/top?format=json&limit=2000
-                    &direction=${direction}&sort=${sort}` + (queryString? `&qmode=everything&q=${queryString}` : ''))
-        .then(res => res.json())
-        .then(data => {
-
-            const getCreatorName = (creators) => {
-                if (creators.length > 5) {
-                    creators = [...creators.slice(0, 3), creators[creators.length - 1], {name: ' et al.'}] 
-                }
-                return creators
-                    .filter(c => !c.creatorType || c.creatorType === 'author'  || c.creatorType === 'presenter')
-                    .map(c => c.name? c.name :
-                        ` ${c.lastName && c.lastName} ${c.firstName && c.firstName
-                            .replace(/\./g,'').replace(/-/g, ' ').split(' ').map(n => n[0].toUpperCase()).join(' ')}`)
-            }
-
-            disableLoading()
-            receivedData = data.map(d => d.data)
-
-            const listEl = document.getElementById('ref-list-el')
-
-            // Style of the reference
-            // [Icon][List of authors] ([PublicationYear]) [Title]. [publicationTitle/proceedingsTitle], [volume] ([issue]): [pages], [DOI]
-            // The list of authors
-            // [Last name] [First initials], [Last name] [First initials], ..., [Last name] [First initials]
-
-            const html = `<div id="ref-list-el">${data.map((d, i) =>
-                `<p onclick="openNav(${i})"
-                    className="reference julich-bar"
-                    class="lt-grey-bg ref-item">
-                    <span style="font-size: 20px">${d.data.itemType === 'journalArticle'? '📄' : d.data.itemType === 'thesis'? '🎓' : d.data.itemType === 'conferencePaper'? '📝' : d.data.itemType === 'report'? '📈' : d.data.itemType === 'preprint'? '📃' : '🖥'}</span>
-                    ${getCreatorName(d.data.creators)}
-                    ${d.data.date ? `(${(new Date(d.data.date)).getFullYear()})` : ''}
-                    <span class="ref-title">${d.data.title}.</span>
-                    ${d.data.publicationTitle? `${d.data.publicationTitle},` : d.data.proceedingsTitle? `${d.data.proceedingsTitle},` : ''}
-                    ${d.data.university? d.data.university : ''}
-                    ${d.data.volume? `${d.data.volume} ${d.data.issue? `(${d.data.issue})` : ''} : ` : ''}
-                    ${d.data.pages? `${d.data.pages},` : ''}
-                    ${d.data.DOI? `<a href="https://doi.org/${d.data.DOI}" target="_blank">${d.data.DOI}</a>` : ''}
-                </p><br>`
-            ).join('')}</div>`
-
-            document.getElementById('refLoader').remove()
-            document.getElementById('reference-list').insertAdjacentHTML('afterbegin', html)
-            loadingEl.style.display = 'none'
-        })
-        .catch(err => console.warn)
-}
-fetchReferences()
-
-const fetchItemChildren = (itemKey) => {
-    fetch(`https://api.zotero.org/groups/${zoteroId}/items/${itemKey}/children?format=json&limit=2000`)
-        .then(res => res.json())
-        .then(data => {
-            const selectedItemChildren = data.map(d => d.data)
-
-
-            const notesTabEl = document.getElementById('Notes-button')
-            notesTabEl.style.display = 'none'
-            const attachmentsTabEl = document.getElementById('Attachments-button')
-            attachmentsTabEl.style.display = 'none'
-
-            const notesPanel = document.getElementById('ref-preview-panel-note')
-            if (notesPanel) {
-                const notes = selectedItemChildren.filter(i => i.itemType === 'note')
-                if (notes.length) {
-                    notesTabEl.style.display = 'inline'
-
-                    const noteHtml = `<div id="ref-detail-note">${notes.map(n => (`<div class="ref-tag lt-grey-bg">${n.note}</div>`)).join('')}</div>`
-                    notesPanel.insertAdjacentHTML('beforeend', noteHtml)
-                }
-            }
-
-            const attachmentPanel = document.getElementById('ref-preview-panel-attachment')
-            if(attachmentPanel) {
-                const attachments = selectedItemChildren.filter(i => i.itemType === 'attachment')
-                if (attachments.length) {
-                    attachmentsTabEl.style.display = 'inline'
-                    const attachmentHtml = `<div id="ref-detail-attachment">${attachments.map(a => (`<p><a href="${a.url}" target="_blank">${a.title} ${a.filename? `(${a.filename})` : ''}</a></p>`)).join('')}</div>`
-                    attachmentPanel.insertAdjacentHTML('beforeend', attachmentHtml)
-                }
-            }
-
-        })
-        .catch(err => console.warn)
+    return root
 }
 
-const openNav = (i = 0) => {
+/**
+ * 
+ * @param {GroupedZetoroResp[]} groupReferences 
+ * @returns {HTMLDivElement}
+ */
+function generateGroupedReferenceListRootElement(groupReferences) {
+    const _ = document.createElement("div")
+    const groupedNodes = groupReferences.map( convertGroupedRefToNode )
+    for (const el of groupedNodes) {
+        _.appendChild(el)
+    }
+    return _
+}
+
+/**
+ * 
+ * @param {string} key 
+ */
+function openSideNav(key){
+    const foundItem = fetchedItems.find(item => item.key === key)
+    const ref = foundItem.data
+
     removeAttachedHtmls()
-
-    const ref = receivedData[i]
-    fetchItemChildren(ref.key)
+    
+    fetchItemChildren(key)
     const panel = document.getElementById('ref-preview-panel')
     panel.style.width = '600px'
 
@@ -353,15 +592,96 @@ const openNav = (i = 0) => {
     } else {
         tagsTabEl.style.display = 'none'
     }
-
 }
 
-const closeNav = () => {
+/**
+ * IIFE to populate itemtypes & populate initial list
+ */
+(async () => {
+
+    referencesLoadingPrescript()
+
+    fetchedItems = await _fetchReferences()
+    populateReferenceList(fetchedItems)
+    
+    const searchInput = document.getElementById("ref-search")
+    searchInput.addEventListener('search', onFilterCriteriaChange)
+    searchInput.addEventListener("keyup", event => {
+        if (event.key === 'Enter') {
+            onFilterCriteriaChange()
+        }
+    })
+
+    referenceLoadingPostscript()
+})()
+
+async function onFilterCriteriaChange(){
+
+    referencesLoadingPrescript()
+
+    const direction = "desc"
+    const sort = "date"
+
+    const searchString = document.getElementById('ref-search').value
+
+    /** @type {HTMLCollectionOf<HTMLInputElement>} */
+    const checkboxes = document.getElementsByClassName('check-box-types')
+    const someUnchecked = Array.from(checkboxes).some(checkbox => !checkbox.checked)
+    
+    const filterByItemType = someUnchecked
+        && Array.from(checkboxes)
+        .filter(ch => ch.checked)
+        .map(ch => ch.dataset.typeName)
+    
+    fetchedItems = await _fetchReferences(sort, direction, searchString, filterByItemType)
+    populateReferenceList(fetchedItems)
+
+    referenceLoadingPostscript()
+}
+
+const fetchItemChildren = (itemKey) => {
+    fetch(`https://api.zotero.org/groups/${zoteroId}/items/${itemKey}/children?format=json&limit=2000`)
+        .then(res => res.json())
+        .then(data => {
+            const selectedItemChildren = data.map(d => d.data)
+
+
+            const notesTabEl = document.getElementById('Notes-button')
+            notesTabEl.style.display = 'none'
+            const attachmentsTabEl = document.getElementById('Attachments-button')
+            attachmentsTabEl.style.display = 'none'
+
+            const notesPanel = document.getElementById('ref-preview-panel-note')
+            if (notesPanel) {
+                const notes = selectedItemChildren.filter(i => i.itemType === 'note')
+                if (notes.length) {
+                    notesTabEl.style.display = 'inline'
+
+                    const noteHtml = `<div id="ref-detail-note">${notes.map(n => (`<div class="ref-tag lt-grey-bg">${n.note}</div>`)).join('')}</div>`
+                    notesPanel.insertAdjacentHTML('beforeend', noteHtml)
+                }
+            }
+
+            const attachmentPanel = document.getElementById('ref-preview-panel-attachment')
+            if(attachmentPanel) {
+                const attachments = selectedItemChildren.filter(i => i.itemType === 'attachment')
+                if (attachments.length) {
+                    attachmentsTabEl.style.display = 'inline'
+                    const attachmentHtml = `<div id="ref-detail-attachment">${attachments.map(a => (`<p><a href="${a.url}" target="_blank">${a.title} ${a.filename? `(${a.filename})` : ''}</a></p>`)).join('')}</div>`
+                    attachmentPanel.insertAdjacentHTML('beforeend', attachmentHtml)
+                }
+            }
+
+        })
+        .catch(err => console.warn)
+}
+
+function closeNav(){
     removeAttachedHtmls()
     document.getElementById('ref-preview-panel').style.width = '0'
 }
 
-const removeAttachedHtmls = () => {
+function removeAttachedHtmls(){
     const info = document.getElementById('ref-detail-info')
     if (info) info.remove()
     const tag = document.getElementById('ref-detail-tag')
@@ -388,26 +708,4 @@ const selectRefTab = ( tab) => {
 
     document.getElementById(tab).style.display = 'block'
     document.getElementById(tab+'-button').className += ' active'
-}
-
-const sortChanged = () => {
-    const sortValue = document.getElementById('sort-ref').value
-    if (sortValue !== sortBy) {
-        sortBy = sortValue
-        const listEl = document.getElementById('ref-list-el')
-        if(listEl) listEl.remove()
-        closeNav()
-        receivedData = []
-        fetchReferences()
-    }
-}
-
-const search = () => {
-    const string = document.getElementById('ref-search').value
-    if (searchString !== string) {
-        searchString = string
-        closeNav()
-        receivedData = []
-        fetchReferences()
-    }
 }
