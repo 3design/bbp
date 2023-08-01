@@ -2084,13 +2084,18 @@ a.anchor {
   width: calc(100% - 47px);
   padding-left: 10px;
 }
-
+@media screen and (min-width: 800px){
+  .big-head-space {
+    margin-top: 325px;
+  }
 /*References new*/
 .ref-item {
   padding: 20px;
   cursor: pointer;
   margin-bottom: 0;
 }
+}
+
 
 .ref-details-panel {
   height: calc(100vh - 60px);
