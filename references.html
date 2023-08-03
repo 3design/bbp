@@ -104,8 +104,53 @@
   <section class="extra-pad">
     <div class="section-content flex end">
       <h1 class="full-width text-center">BigBrain References</h1>
-      <h2 class="full-width text-center">Publications involving the BigBrain</h2>
+      
+<!-- added secondary navigation -->
 
+      <h2 id="stickypad" class="full-width text-center">Publications involving the BigBrain</h2>
+
+      <div  id="tabs">
+        <ul id="second-nav" class="tabs-list">
+          <li>
+            <a href="#ref-section-journalArticle">
+              <button data-mh="button">
+                Journal Article
+              </button>
+            </a>
+          </li>
+          <li>
+            <a href="#ref-section-conferencePaper">
+              <button data-mh="button">
+                Conference Paper
+              </button>
+            </a>
+          </li>
+          
+          <li>
+            <a href="#ref-section-preprint">
+              <button data-mh="button">
+                Preprint
+              </button>
+            </a>
+          </li>
+          
+          <li>
+            <a href="#ref-section-thesis">
+              <button data-mh="button">
+                Thesis
+              </button>
+            </a>
+          </li>
+
+          <li>
+            <a href="#ref-section-presentation">
+              <button data-mh="button">
+                Presentation
+              </button>
+            </a>
+          </li>
+
+        </ul>
 
       <div class="flex flex-space-between full-width mb-2">
         <div class="flex">
@@ -154,7 +199,7 @@
 
       </div>
 
-
+    </div>
     </div>
   </section>
   <div class="clear-all"></div>
@@ -202,5 +247,24 @@
       }
     });
   });
+</script>
+
+<script>
+$("document").ready(function($){
+    var $stick = $('#second-nav');
+    var $pad = $('#stickypad');
+    var $win = $(window);
+    // var winH = $win.height() + 120;   // Get the window height.
+
+    $win.on("scroll", function () {
+        if ($(this).scrollTop() > 119 ) {
+            $stick.addClass("stick");
+            $pad.addClass("stick-pad2");
+        } else {
+            $stick.removeClass("stick");
+            $pad.removeClass("stick-pad2");
+        }
+    })
+});
 </script>
 </body></html>
