@@ -286,6 +286,7 @@ function convertGroupedRefToNode(groupedRef) {
 
     // create header-anchor
     const headerAnchor = document.createElement("a")
+    headerAnchor.classList.add("anchor", "ref-section-anchor")
     headerAnchor.id = `ref-section-${groupedRef.name}`
 
     // create header
