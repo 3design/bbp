@@ -2191,6 +2191,10 @@ a.anchor {
   }
 }
 
+.ref-section-header {
+  margin: 40px 0 20px;
+}
+
 /* Safari */
 @-webkit-keyframes spin {
   0% { -webkit-transform: rotate(0deg); }
