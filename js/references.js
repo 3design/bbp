@@ -356,6 +356,14 @@ function convertGroupedRefToNode(groupedRef) {
     root.appendChild(headerAnchor)
     root.appendChild(header)
     root.appendChild(refsContainer)
+
+    if (itemContainers.length === 0) {
+        const noResultsDiv = document.createElement("div")
+        noResultsDiv.classList.add("no-results-found-container")
+        noResultsDiv.textContent = "No results found"
+        root.appendChild(noResultsDiv)
+    }
+
     for (const item of itemContainers) {
         refsContainer.appendChild(item)
     }
