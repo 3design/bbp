@@ -1,5 +1,4 @@
 /**
- * fetchedItems
  * referencesLoadingPrescript
  * fetchReferences
  * populateReferenceList
@@ -13,11 +12,7 @@
  */
 (async () => {
     const ZETORO_COLLECTION = 'XT9EWQJJ'
-    const ZOTERO_COMMUNITY_COLLECTION = 'PYKR9D36'
-    const urls = [
-        `https://api.zotero.org/groups/${ZETORO_ID}/collections/${ZETORO_COLLECTION}/items/top`,
-        `https://api.zotero.org/groups/${ZETORO_ID}/collections/${ZOTERO_COMMUNITY_COLLECTION}/items/top`,
-    ]
+    const urls = [`https://api.zotero.org/groups/${ZETORO_ID}/collections/${ZETORO_COLLECTION}/items/top`]
 
     referencesLoadingPrescript()
 
