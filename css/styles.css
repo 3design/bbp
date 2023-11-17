@@ -1651,8 +1651,8 @@ height: 100%;
     width: 14.285%;
   }
   .sab-size .mosaic {
-/*    width: 25%;*/
-    width: 14.285%;
+    width: 25%;
+/*    width: 14.285%;*/
   }
 }
 /* anchors */
@@ -2270,4 +2270,7 @@ a.anchor {
 
 .closebtn:hover {
   color: black;
+}
+.sab-holder {
+  max-width: 800px;
 }
