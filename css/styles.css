@@ -319,6 +319,10 @@ pre code {
   background: no-repeat center url(../images/bbworkshop2022/Header_BigBrainWorkshop2022.png);
   background-size: cover;
 }
+.bbworkshop2023-bg {
+  background: no-repeat center url(../images/bigbrainworkshop-2023.png);
+  background-size: cover;
+}
 .featured-bg {
   background: no-repeat url(../images/featured/featured-5.png);
   background-size: cover;
