@@ -510,6 +510,14 @@ pre code {
     width: 25%;
     padding: 20px 15px;
   }
+  .hero-logos-link-3 {
+    height: auto;
+    width: 25%;
+    padding: 20px 15px;
+  }
+  .hero-logos-link-3 img {
+    max-width: 100px;
+  }
   .hero-logos-link img {
     width: 100%;
     /*height: 75px;*/
