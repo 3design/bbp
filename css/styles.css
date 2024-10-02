@@ -1785,6 +1785,15 @@ a.anchor {
   }
 }
 
+.small-font h1 {
+  font-size: 1.5rem;
+}
+.small-font h2 {
+  font-size: 1.25rem;
+}
+.big-font {
+  font-size: 1.5rem;
+}
 
 /* slick slider */
 #slick-slider,
