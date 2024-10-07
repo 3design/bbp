@@ -1770,8 +1770,21 @@ a.anchor {
     font-size: 1.75em;
     margin-bottom: 1em;
   }
+  .hero-content-grid h2 {
+    font-size: 1.5em;
+    margin-bottom: 1em;
+  }
   .hero-content-container {
     /*border-radius: 15px;*/
+  }
+}
+@media screen and (min-width: 1600px) {
+  .hero-content-grid h1  {
+    font-size: 2.5em;
+/*    color: red;*/
+  }
+  .hero-content-grid h2 {
+    font-size: 2em;
   }
 }
 @media screen and (min-width: 768px) {
@@ -1793,6 +1806,11 @@ a.anchor {
 }
 .big-font {
   font-size: 1.5rem;
+}
+
+.image-size {
+  max-width: 360px;
+  max-height: 360px;
 }
 
 /* slick slider */
