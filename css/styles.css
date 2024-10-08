@@ -1779,11 +1779,11 @@ a.anchor {
   }
 }
 @media screen and (min-width: 1600px) {
-  .hero-content-grid h1  {
+  .hero-content-grid h1.big  {
     font-size: 2.5em;
 /*    color: red;*/
   }
-  .hero-content-grid h2 {
+  .hero-content-grid h2.big {
     font-size: 2em;
   }
 }
