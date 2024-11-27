@@ -118,16 +118,36 @@
       <div class="clear-all"></div>
       <div class="col-2 internal-padding">
         <p>
-          Quantifiable and interpretable descriptors of nerve fiber architecture at microscopic resolution provide an important foundation for a deeper understanding of human brain architecture. 3D polarized light imaging (3D-PLI) is a microscopic imaging technique capable of resolving the course and geometry of nerve fibers in whole postmortem brain sections represented in large data sets. The large amount of data combined with complex textures in 3D-PLI images, however, makes analysis challenging and limits access to data annotation
+          Quantifiable and interpretable descriptors of nerve fiber architecture at microscopic resolution provide an
+important foundation for a deeper understanding of human brain architecture. 3D polarized light imaging
+(3D-PLI) is a microscopic imaging technique capable of resolving the course and geometry of nerve fibers in
+whole postmortem brain sections represented in large data sets. The large amount of data combined with
+complex textures in 3D-PLI images, however, makes analysis challenging and limits access to data
+annotation.
         </p>
         <p>
-          To this end, we recently conducted a study on the capabilities of self-supervised learning for automatic characterization of fiber architecture in 3D-PLI, now published as an article in Imaging Neuroscience. In this article, we employed a specific self-supervised learning strategy that leverages volume reconstructions of individual and independently measured brain sections to sample positive pairs for contrastive learning. Pairs are identified based on a fixed distance between small sample image patches across brain sections in a 3D context (CL-3D). The efficacy of this approach is demonstrated on the occipital lobe of a vervet monkey brain. Axes of maximum variance in CL-3D feature space are shown to align well with microstructural organizational principles, such as gray and white matter, myeloarchitectonic layer structures, fiber bundles, crossings, and fannings. Features fall into spatially consistent clusters of similar fiber architecture (see Figure 10), demonstrating robustness to variations between independently acquired brain sections when learning in a 3D context. Furthermore, CL-3D embeddings require less manual annotation to achieve convincing tissue segmentation compared to other texture descriptors.
+          To this end, we recently conducted a study on the capabilities of self-supervised learning for automatic
+characterization of fiber architecture in 3D-PLI, now published as an article in Imaging Neuroscience. In this
+article, we employed a specific self-supervised learning strategy that leverages volume reconstructions of
+individual and independently measured brain sections to sample positive pairs for contrastive learning.
+Pairs are identified based on a fixed distance between small sample image patches across brain sections in
+a 3D context (CL-3D). The efficacy of this approach is demonstrated on the occipital lobe of a vervet
+monkey brain. Axes of maximum variance in CL-3D feature space are shown to align well with
+microstructural organizational principles, such as gray and white matter, myeloarchitectonic layer
+structures, fiber bundles, crossings, and fannings. Features fall into spatially consistent clusters of similar
+fiber architecture (see Figure 10), demonstrating robustness to variations between independently acquired
+brain sections when learning in a 3D context. Furthermore, CL-3D embeddings require less manual
+annotation to achieve convincing tissue segmentation compared to other texture descriptors.
         </p>
         
       </div>
       <div class="col-2 internal-padding">
         <p>
-          Without any supervisory signal, CL-3D features form a well-structured embedding space that can be beneficial for various downstream tasks in 3D-PLI analysis, including data exploration, query-based retrieval of selected template structures such as U-fibers and mapping of fiber architecture with minimal labels. While demonstrated for a 3D-PLI dataset, the proposed CL-3D method can potentially be applied to other microscopic modalities in other brains with available 3D reconstructions, as well. 
+          Without any supervisory signal, CL-3D features form a well-structured embedding space that can be
+beneficial for various downstream tasks in 3D-PLI analysis, including data exploration, query-based
+retrieval of selected template structures such as U-fibers and mapping of fiber architecture with minimal
+labels. While demonstrated for a 3D-PLI dataset, the proposed CL-3D method can potentially be applied to
+other microscopic modalities in other brains with available 3D reconstructions, as well. 
         </p>
         <p>
           The full article is now available in Imaging Neuroscience: <a href="https://doi.org/10.1162/imag_a_00351">https://doi.org/10.1162/imag_a_00351</a><br>
