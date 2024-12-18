@@ -1903,7 +1903,7 @@ a.anchor {
   display: flex;
   list-style: none;
   margin-bottom: 80px;
-  z-index: 9999;
+  z-index: 999;
 }
 .tabs-list li {
   margin: 0 10px;
