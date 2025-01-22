@@ -711,7 +711,7 @@ const selectRefTab = ( tab) => {
  * 
  * @param {(...args:any[]) => void} callback 
  */
-async function fetchTotal(callback){
+async function ZoteroFetchTotal(callback){
 
     const collections = [
         {
@@ -726,14 +726,13 @@ async function fetchTotal(callback){
 
     for (const { collectionId, type } of collections){
         const data = await fetchCollection(ZETORO_ID, collectionId)
-        const event = new CustomEvent(ZOTERO_TOTAL_EVENT_NAME, {
-            detail: {
-                type,
-                total: data.meta.numItems,
-                data
-            }
-        })
+        const detail = {
+            type,
+            total: data.meta.numItems,
+            data
+        }
+        const event = new CustomEvent(ZOTERO_TOTAL_EVENT_NAME, { detail })
         document.dispatchEvent(event)
-        callback && callback(event)
+        callback && callback(detail)
     }
 }
