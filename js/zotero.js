@@ -711,7 +711,7 @@ const selectRefTab = ( tab) => {
  * 
  * @param {(...args:any[]) => void} callback 
  */
-async function ZoteroFetchTotal(callback){
+async function zoteroFetchTotal(callback){
 
     const collections = [
         {
