@@ -2328,3 +2328,8 @@ a.anchor {
 .sab-holder {
   max-width: 800px;
 }
+
+/* figure formatting */
+p.fig-text {
+  font-size: 13px;
+}
