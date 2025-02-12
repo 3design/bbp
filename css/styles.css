@@ -2333,3 +2333,7 @@ a.anchor {
 p.fig-text {
   font-size: 13px;
 }
+img.small-img {
+  max-width: 70%;
+  margin: 0 auto;
+}
