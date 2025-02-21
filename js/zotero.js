@@ -13,7 +13,7 @@ const ZETORO_COLLECTION = 'XT9EWQJJ'
 const ZOTERO_COMMUNITY_COLLECTION = 'PYKR9D36'
 const ZETORO_LIMIT = 2000
 const ZOTERO_ITEM_TYPES = ["journalArticle", "preprint", "presentation", "thesis", "conferencePaper"]
-
+const ZOTERO_TOTAL_EVENT_NAME = "bbp:zotero:total"
 /**
  * 
  * @param {string} input
@@ -156,6 +156,33 @@ const disableLoading = () => {
  * @property {string} name
  * @property {ZetoroResp[]} items 
  */
+
+/**
+ * @typedef {Object} Meta
+ * @property {number} numCollections
+ * @property {number} numItems
+ * 
+ * @typedef {Object} ZetoroCollection
+ * @property {Meta} meta
+ * @property {number} version
+ * @property {ZetoroLibrary} library
+ * @property {string} key
+ */
+
+/**
+ * @description Fetches collection info. 
+ * @param {string} groupId 
+ * @param {string} collectionId 
+ * @returns {Promise<ZetoroCollection>}
+ */
+async function fetchCollection(groupId, collectionId){
+    const url = new URL(`https://api.zotero.org/groups/${groupId}/collections/${collectionId}`)
+
+    // TODO not sure if this is necessary
+    url.searchParams.set("itemType", ZOTERO_ITEM_TYPES.join(" || "))
+    const resp = await fetch(url)
+    return await resp.json()
+}
 
 /**
  * 
@@ -677,4 +704,35 @@ const selectRefTab = ( tab) => {
 
     document.getElementById(tab).style.display = 'block'
     document.getElementById(tab+'-button').className += ' active'
+}
+
+
+/**
+ * 
+ * @param {(...args:any[]) => void} callback 
+ */
+async function zoteroFetchTotal(callback){
+
+    const collections = [
+        {
+            type: "main",
+            collectionId: ZETORO_COLLECTION
+        },
+        {
+            type: "community",
+            collectionId: ZOTERO_COMMUNITY_COLLECTION
+        }
+    ]
+
+    for (const { collectionId, type } of collections){
+        const data = await fetchCollection(ZETORO_ID, collectionId)
+        const detail = {
+            type,
+            total: data.meta.numItems,
+            data
+        }
+        const event = new CustomEvent(ZOTERO_TOTAL_EVENT_NAME, { detail })
+        document.dispatchEvent(event)
+        callback && callback(detail)
+    }
 }
