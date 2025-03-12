@@ -2142,6 +2142,14 @@ a.anchor {
   padding-left: 10px;
 }
 
+.feature-portrait {
+  width: auto;
+  height: auto;
+  max-width: 30%;
+  float: left;
+  margin: 0 15px 15px 0;
+}
+
 /*References new*/
 .ref-item {
   padding: 20px;
