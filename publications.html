@@ -234,9 +234,17 @@
   <div class="brand-border-2"></div>
   <div class="brand-border-3"></div>
 </div>
-
 <script src="js/zotero.js" type="text/javascript"></script>
 <script src="js/publications.js" type="text/javascript"></script>
+
+<script>
+  document.addEventListener(ZOTERO_TOTAL_EVENT_NAME, ev => {
+    console.log("event heard:", ev.detail)
+  }) // optional if we use callback
+  zoteroFetchTotal(detail => {
+    console.log("event in callback", detail)
+  }) // or zoteroFetchTotal() also works, if we are using event listener above
+</script>
 
 <script>
   $(function(){
