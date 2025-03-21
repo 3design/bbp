@@ -2339,7 +2339,8 @@ a.anchor {
 
 /* figure formatting */
 p.fig-text {
-  font-size: 13px;
+/*  font-size: 13px;*/
+  font-style: italic;
 }
 img.small-img {
   max-width: 70%;
