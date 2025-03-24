@@ -22,6 +22,24 @@
     referencesLoadingPrescript()
 
     fetchedItems = await fetchReferences(urls)
+    
+    const tally = {}
+    for (const item of fetchedItems){
+        const { itemType } = item.data
+        if (!tally[itemType]) {
+            tally[itemType] = 0
+        }
+        tally[itemType] += 1
+    }
+    for (const itemtype in tally){
+        const detail = {
+            total: tally[itemtype],
+            itemtype,
+        }
+        const event = new CustomEvent(ZOTERO_TOTAL_EVENT_NAME, { detail })
+        document.dispatchEvent(event)
+    }
+
     populateReferenceList(fetchedItems)
     
     const searchInput = document.getElementById("ref-search")
