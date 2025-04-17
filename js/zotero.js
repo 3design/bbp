@@ -12,7 +12,9 @@ const ZETORO_ID = '4306971'
 const ZETORO_COLLECTION = 'XT9EWQJJ'
 const ZOTERO_COMMUNITY_COLLECTION = 'PYKR9D36'
 const ZETORO_LIMIT = 2000
-const ZOTERO_ITEM_TYPES = ["journalArticle", "preprint", "presentation", "thesis", "conferencePaper"]
+const ZOTERO_ITEM_TYPES = ["journalArticle", "preprint", "thesis", "conferencePaper"]
+// ** comment out presentation as there is only one result
+// const ZOTERO_ITEM_TYPES = ["journalArticle", "preprint", "presentation", "thesis", "conferencePaper"]
 const ZOTERO_TOTAL_EVENT_NAME = "bbp:zotero:total"
 /**
  * 
@@ -231,10 +233,11 @@ function groupReferences(items) {
             name: "thesis",
             items: []
         },
-        {
-            name: "presentation",
-            items: []
-        },
+        // ** comment out as there is only one result
+        // {
+        //     name: "presentation",
+        //     items: []
+        // },
     ]
     for (const item of items) {
         const found = _.find(obj => obj.name === item.data.itemType)
