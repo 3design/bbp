@@ -125,6 +125,9 @@
             <a href="#ref-section-journalArticle">
               <button data-mh="button">
                 Journal Article
+                <span class="tally_container">
+                  (<span data-tally="0" class="tally_journalArticle"></span>)
+                </span>
               </button>
             </a>
           </li>
@@ -132,6 +135,9 @@
             <a href="#ref-section-conferencePaper">
               <button data-mh="button">
                 Conference Paper
+                <span class="tally_container">
+                  (<span data-tally="0" class="tally_conferencePaper"></span>)
+                </span>
               </button>
             </a>
           </li>
@@ -140,6 +146,9 @@
             <a href="#ref-section-preprint">
               <button data-mh="button">
                 Preprint
+                <span class="tally_container">
+                  (<span data-tally="0" class="tally_preprint"></span>)
+                </span>
               </button>
             </a>
           </li>
@@ -148,6 +157,9 @@
             <a href="#ref-section-thesis">
               <button data-mh="button">
                 Thesis
+                <span class="tally_container">
+                  (<span data-tally="0" class="tally_thesis"></span>)
+                </span>
               </button>
             </a>
           </li>
@@ -156,6 +168,9 @@
             <a href="#ref-section-presentation">
               <button data-mh="button">
                 Presentation
+                <span class="tally_container">
+                  (<span data-tally="0" class="tally_presentation"></span>)
+                </span>
               </button>
             </a>
           </li>
@@ -234,9 +249,28 @@
   <div class="brand-border-2"></div>
   <div class="brand-border-3"></div>
 </div>
-
 <script src="js/zotero.js" type="text/javascript"></script>
 <script src="js/publications.js" type="text/javascript"></script>
+
+<script>
+  // IIFE to avoid polluting global scope
+  (function(){
+    document.addEventListener(ZOTERO_TOTAL_EVENT_NAME, event => {
+      const { total, itemtype } = event.detail || {}
+      const allEl = document.querySelectorAll(`.tally_${itemtype || ''}`)
+      allEl.forEach(el => {
+        el.dataset['tally'] = `${total}`
+        el.textContent = `${total}`
+      })
+    })
+  })()
+</script>
+<style>
+  .tally_container:has([data-tally="0"])
+  {
+    display: none;
+  }
+</style>
 
 <script>
   $(function(){
