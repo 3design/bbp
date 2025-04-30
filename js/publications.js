@@ -3,17 +3,17 @@
  * fetchReferences
  * populateReferenceList
  * referenceLoadingPostscript
- * 
+ * ZETORO_ID
+ * ZETORO_COLLECTION
  * declared in zotero.js
  */
+
+const urls = [`https://api.zotero.org/groups/${ZETORO_ID}/collections/${ZETORO_COLLECTION}/items/top`];
 
 /**
  * IIFE to populate itemtypes & populate initial list
  */
 (async () => {
-    const ZETORO_COLLECTION = 'XT9EWQJJ'
-    const urls = [`https://api.zotero.org/groups/${ZETORO_ID}/collections/${ZETORO_COLLECTION}/items/top`]
-
     referencesLoadingPrescript()
 
     fetchedItems = await fetchReferences(urls)
@@ -47,18 +47,19 @@
 
     referenceLoadingPostscript()
     
-    async function onFilterCriteriaChange(){
-
-        referencesLoadingPrescript()
-
-        const direction = "desc"
-        const sort = "date"
-
-        const searchString = document.getElementById('ref-search').value
-
-        fetchedItems = await fetchReferences(urls, sort, direction, searchString)
-        populateReferenceList(fetchedItems)
-
-        referenceLoadingPostscript()
-    }
 })()
+
+async function onFilterCriteriaChange(){
+
+    referencesLoadingPrescript()
+
+    const direction = "desc"
+    const sort = "date"
+
+    const searchString = document.getElementById('ref-search').value
+
+    fetchedItems = await fetchReferences(urls, sort, direction, searchString)
+    populateReferenceList(fetchedItems)
+
+    referenceLoadingPostscript()
+}
