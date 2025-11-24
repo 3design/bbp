@@ -327,6 +327,10 @@ pre code {
   background: no-repeat center url(../images/bbworkshop2024/padua.jpeg);
   background-size: cover;
 }
+.bbworkshop2025-bg {
+  background: no-repeat center url(../images/bbworkshop2025/berlin.jpg);
+  background-size: cover;
+}
 .featured-bg {
   background: no-repeat url(../images/featured/featured-5.png);
   background-size: cover;
