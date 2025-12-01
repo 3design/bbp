@@ -2262,6 +2262,11 @@ a.anchor {
   margin: 40px 0 20px;
 }
 
+.gallery-video iframe {
+  display: block;
+  margin: 0 auto;
+}
+
 /* Safari */
 @-webkit-keyframes spin {
   0% { -webkit-transform: rotate(0deg); }
